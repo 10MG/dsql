@@ -2,7 +2,6 @@ package cn.tenmg.dsql.config.model.converter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import cn.tenmg.dsql.config.model.Dsqls;
@@ -15,33 +14,14 @@ import cn.tenmg.dsql.config.model.Dsqls;
  */
 @XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ToDate {
+public class ToDate extends BasicConverter {
 	/**
-	 * 参数列表，使用逗号分隔
+	 * 
 	 */
-	@XmlAttribute
-	private String params;
+	private static final long serialVersionUID = -7602665349013024784L;
 
-	/**
-	 * 格式化模板（默认值yyyy-MM-dd）
-	 */
-	@XmlAttribute
-	private String formatter = "yyyy-MM-dd";
-
-	public String getParams() {
-		return params;
-	}
-
-	public void setParams(String params) {
-		this.params = params;
-	}
-
-	public String getFormatter() {
-		return formatter;
-	}
-
-	public void setFormatter(String formatter) {
-		this.formatter = formatter;
+	public ToDate() {
+		super("yyyy-MM-dd");// 格式化模板默认值yyyy-MM-dd
 	}
 
 }

@@ -2,45 +2,23 @@ package cn.tenmg.dsql.config.model.filter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import cn.tenmg.dsql.config.model.Dsqls;
 
 /**
- * 等值参数过滤器配置模型
+ * 等于比较值字符串参数过滤器配置模型
  * 
  * @author 赵伟均 wjzhao@aliyun.com
  *
  */
 @XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Eq {
-	/**
-	 * 参数列表，使用逗号分隔。默认*，代表全部
-	 */
-	@XmlAttribute
-	private String params = "*";
+public class Eq extends CompareableFilter {
 
 	/**
-	 * 供比较的值
+	 * 
 	 */
-	@XmlAttribute
-	private String value;
+	private static final long serialVersionUID = 5020559559509109433L;
 
-	public String getParams() {
-		return params;
-	}
-
-	public void setParams(String params) {
-		this.params = params;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
 }

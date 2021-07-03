@@ -1,10 +1,12 @@
 package cn.tenmg.dsql.config.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import cn.tenmg.dsql.config.model.filter.Blank;
@@ -15,96 +17,35 @@ import cn.tenmg.dsql.config.model.filter.Lt;
 import cn.tenmg.dsql.config.model.filter.Lte;
 
 /**
- * 参数过滤器配置模型
+ * 参数过滤器容器配置模型
  * 
- * @author 赵伟均
+ * @author 赵伟均 wjzhao@aliyun.com
  *
  */
 @XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Filter {
-	/**
-	 * 空白字符串参数过滤器配置列表
-	 */
-	@XmlElement(name = "blank", namespace = Dsqls.NAMESPACE)
-	private List<Blank> blanks;
+public class Filter implements Serializable {
 
 	/**
-	 * 等值参数过滤器配置列表
+	 * 
 	 */
-	@XmlElement(name = "eq", namespace = Dsqls.NAMESPACE)
-	private List<Eq> Eqs;
+	private static final long serialVersionUID = -2422794588330208026L;
 
-	/**
-	 * 大于给定值字符串参数移除器
-	 */
-	@XmlElement(name = "gt", namespace = Dsqls.NAMESPACE)
-	private List<Gt> gts;
+	@XmlElements({ @XmlElement(name = "blank", type = Blank.class, namespace = Dsqls.NAMESPACE), // 空白字符串参数移除器
+			@XmlElement(name = "eq", type = Eq.class, namespace = Dsqls.NAMESPACE), // 等于指定值字符串参数移除器
+			@XmlElement(name = "gt", type = Gt.class, namespace = Dsqls.NAMESPACE), // 大于指定值字符串参数移除器
+			@XmlElement(name = "gte", type = Gte.class, namespace = Dsqls.NAMESPACE), // 大于等于指定值字符串参数移除器
+			@XmlElement(name = "lt", type = Lt.class, namespace = Dsqls.NAMESPACE), // 小于指定值字符串参数移除器
+			@XmlElement(name = "lte", type = Lte.class, namespace = Dsqls.NAMESPACE)// 小于等于指定值字符串参数处理器
+	})
+	private List<ParamsHandler> paramsFilters;
 
-	/**
-	 * 大于等于给定值字符串参数移除器
-	 */
-	@XmlElement(name = "gte", namespace = Dsqls.NAMESPACE)
-	private List<Gte> gtes;
-
-	/**
-	 * 小于给定值字符串参数移除器
-	 */
-	@XmlElement(name = "lt", namespace = Dsqls.NAMESPACE)
-	private List<Lt> lts;
-
-	/**
-	 * 小于等于给定值字符串参数处理器
-	 */
-	@XmlElement(name = "lte", namespace = Dsqls.NAMESPACE)
-	private List<Lte> ltes;
-
-	public List<Blank> getBlanks() {
-		return blanks;
+	public List<ParamsHandler> getParamsFilters() {
+		return paramsFilters;
 	}
 
-	public void setBlanks(List<Blank> blanks) {
-		this.blanks = blanks;
-	}
-
-	public List<Eq> getEqs() {
-		return Eqs;
-	}
-
-	public void setEqs(List<Eq> eqs) {
-		Eqs = eqs;
-	}
-
-	public List<Gt> getGts() {
-		return gts;
-	}
-
-	public void setGts(List<Gt> gts) {
-		this.gts = gts;
-	}
-
-	public List<Gte> getGtes() {
-		return gtes;
-	}
-
-	public void setGtes(List<Gte> gtes) {
-		this.gtes = gtes;
-	}
-
-	public List<Lt> getLts() {
-		return lts;
-	}
-
-	public void setLts(List<Lt> lts) {
-		this.lts = lts;
-	}
-
-	public List<Lte> getLtes() {
-		return ltes;
-	}
-
-	public void setLtes(List<Lte> ltes) {
-		this.ltes = ltes;
+	public void setParamsFilters(List<ParamsHandler> paramsFilters) {
+		this.paramsFilters = paramsFilters;
 	}
 
 }

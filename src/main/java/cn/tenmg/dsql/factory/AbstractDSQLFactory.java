@@ -1,19 +1,21 @@
 package cn.tenmg.dsql.factory;
 
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.ServiceLoader;
 
 import cn.tenmg.dsql.DSQLFactory;
 import cn.tenmg.dsql.NamedSQL;
-import cn.tenmg.dsql.ParamConverter;
-import cn.tenmg.dsql.ParamFilter;
+import cn.tenmg.dsql.ParamsConverter;
+import cn.tenmg.dsql.ParamsFilter;
 import cn.tenmg.dsql.config.model.Converter;
 import cn.tenmg.dsql.config.model.Dsql;
 import cn.tenmg.dsql.config.model.Filter;
+import cn.tenmg.dsql.config.model.ParamsHandler;
 import cn.tenmg.dsql.utils.CollectionUtils;
 import cn.tenmg.dsql.utils.DSQLUtils;
+import cn.tenmg.dsql.utils.ParamsConverterUtils;
+import cn.tenmg.dsql.utils.ParamsFilterUtils;
 
 /**
  * 抽象动态结构化查询语言工厂
@@ -78,32 +80,62 @@ public abstract class AbstractDSQLFactory implements DSQLFactory {
 	 */
 	protected NamedSQL parse(Dsql dsql, Map<String, ?> params) {
 		Filter filter = dsql.getFilter();
-		if (filter != null) {
-			ServiceLoader<ParamFilter> loader = ServiceLoader.load(ParamFilter.class);
-			for (Iterator<ParamFilter> it = loader.iterator(); it.hasNext();) {
-				if (CollectionUtils.isEmpty(params)) {
-					break;
-				}
-				ParamFilter paramFilter = it.next();
-				paramFilter.doFilter(filter, params);
+		if (!CollectionUtils.isEmpty(params)) {
+			if (filter != null) {
+				doFilter(params, filter);
 			}
-		}
-		Converter converter = dsql.getConverter();
-		if (converter != null) {
-			Map<String, Object> paramaters = new HashMap<String, Object>();
-			paramaters.putAll(params);
-			ServiceLoader<ParamConverter> loader = ServiceLoader.load(ParamConverter.class);
-			if (!CollectionUtils.isEmpty(params)) {
-				for (Iterator<ParamConverter> it = loader.iterator(); it.hasNext();) {
-					ParamConverter paramConverter = it.next();
-					paramConverter.convert(converter, paramaters);
-				}
+			Converter converter = dsql.getConverter();
+			if (converter != null) {
+				Map<String, Object> paramaters = new HashMap<String, Object>();
+				paramaters.putAll(params);
+				convert(paramaters, converter);
+				params = paramaters;
 			}
-			params = paramaters;
 		}
 		NamedSQL namedSQL = DSQLUtils.parse(dsql.getScript(), params);
 		namedSQL.setId(dsql.getId());
 		return namedSQL;
+	}
+
+	/**
+	 * 过滤参数
+	 * 
+	 * @param params
+	 *            参数查找表
+	 * @param filter
+	 *            参数过滤器
+	 */
+	private void doFilter(Map<String, ?> params, Filter filter) {
+		List<ParamsHandler> paramsFilters = filter.getParamsFilters();
+		if (!CollectionUtils.isEmpty(paramsFilters)) {
+			ParamsHandler config;
+			ParamsFilter<ParamsHandler> paramsFilter;
+			for (int i = 0, size = paramsFilters.size(); i < size; i++) {
+				config = paramsFilters.get(i);
+				paramsFilter = ParamsFilterUtils.getParamsFilter(config.getClass());
+				paramsFilter.doFilter(params, config);
+			}
+		}
+	}
+
+	/**
+	 * 参数转换
+	 * 
+	 * @param params
+	 *            参数查找表
+	 * @param converter
+	 *            参数转换器配置
+	 */
+	private void convert(Map<String, Object> params, Converter converter) {
+		List<ParamsHandler> paramsConverters = converter.getParamsConverters();
+		if (!CollectionUtils.isEmpty(paramsConverters)) {
+			for (int i = 0, size = paramsConverters.size(); i < size; i++) {
+				ParamsHandler config = paramsConverters.get(i);
+				ParamsConverter<ParamsHandler> paramsConverter = ParamsConverterUtils
+						.getParamsConverter(config.getClass());
+				paramsConverter.convert(params, config);
+			}
+		}
 	}
 
 }

@@ -3,7 +3,7 @@ package cn.tenmg.dsql.exception;
 /**
  * 转换异常
  * 
- * @author 赵伟均
+ * @author 赵伟均 wjzhao@aliyun.com
  *
  */
 public class ConvertException extends RuntimeException {

@@ -1,10 +1,12 @@
 package cn.tenmg.dsql.config.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import cn.tenmg.dsql.config.model.converter.ToDate;
@@ -12,55 +14,32 @@ import cn.tenmg.dsql.config.model.converter.ToNumber;
 import cn.tenmg.dsql.config.model.converter.WrapString;
 
 /**
- * 参数类型转换器配置模型
+ * 参数类型转换器容器
  * 
- * @author 赵伟均
+ * @author 赵伟均 wjzhao@aliyun.com
  *
  */
 @XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Converter {
+public class Converter implements Serializable {
 
 	/**
-	 * 参数日期类型转换器配置
+	 * 
 	 */
-	@XmlElement(name = "to-date", namespace = Dsqls.NAMESPACE)
-	private List<ToDate> toDates;
+	private static final long serialVersionUID = -5619546911375538778L;
 
-	/**
-	 * 参数数字类型转换器配置
-	 */
-	@XmlElement(name = "to-number", namespace = Dsqls.NAMESPACE)
-	private List<ToNumber> toNumbers;
+	@XmlElements({ @XmlElement(name = "to-date", type = ToDate.class, namespace = Dsqls.NAMESPACE), // 参数日期类型转换器
+			@XmlElement(name = "to-number", type = ToNumber.class, namespace = Dsqls.NAMESPACE), // 参数数字类型转换器
+			@XmlElement(name = "wrap-string", type = WrapString.class, namespace = Dsqls.NAMESPACE) // 字符串参数包装转换器
+	})
+	private List<ParamsHandler> paramsConverters;
 
-	/**
-	 * 字符串LIKE参数包装转换器配置
-	 */
-	@XmlElement(name = "wrap-string", namespace = Dsqls.NAMESPACE)
-	private List<WrapString> wrapStrings;
-
-	public List<ToDate> getToDates() {
-		return toDates;
+	public List<ParamsHandler> getParamsConverters() {
+		return paramsConverters;
 	}
 
-	public void setToDates(List<ToDate> toDates) {
-		this.toDates = toDates;
-	}
-
-	public List<ToNumber> getToNumbers() {
-		return toNumbers;
-	}
-
-	public void setToNumbers(List<ToNumber> toNumbers) {
-		this.toNumbers = toNumbers;
-	}
-
-	public List<WrapString> getWrapStrings() {
-		return wrapStrings;
-	}
-
-	public void setWrapStrings(List<WrapString> wrapStrings) {
-		this.wrapStrings = wrapStrings;
+	public void setParamsConverters(List<ParamsHandler> paramsConverters) {
+		this.paramsConverters = paramsConverters;
 	}
 
 }

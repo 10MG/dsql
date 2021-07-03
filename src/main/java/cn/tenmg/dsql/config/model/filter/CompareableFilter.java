@@ -9,25 +9,30 @@ import cn.tenmg.dsql.config.model.Dsqls;
 import cn.tenmg.dsql.config.model.ParamsHandler;
 
 /**
- * 空白字符串参数过滤器配置模型
- * 
+ * 可比较的参数过滤器配置模型
  * @author 赵伟均 wjzhao@aliyun.com
  *
  */
 @XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Blank implements ParamsHandler {
+public class CompareableFilter implements ParamsHandler {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -9061591158744475010L;
+	private static final long serialVersionUID = -7853611960108517435L;
 
 	/**
 	 * 参数
 	 */
 	@XmlAttribute
-	protected String params = ParamsHandler.ALL_PARAMS;
+	private String params;
+
+	/**
+	 * 比较值
+	 */
+	@XmlAttribute
+	private String value;
 
 	@Override
 	public String getParams() {
@@ -38,4 +43,11 @@ public class Blank implements ParamsHandler {
 		this.params = params;
 	}
 
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
 }

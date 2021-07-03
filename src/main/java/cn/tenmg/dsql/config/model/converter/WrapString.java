@@ -2,7 +2,6 @@ package cn.tenmg.dsql.config.model.converter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import cn.tenmg.dsql.config.model.Dsqls;
@@ -15,38 +14,21 @@ import cn.tenmg.dsql.config.model.Dsqls;
  */
 @XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class WrapString {
+public class WrapString extends BasicConverter {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 785627212732177000L;
 
 	public static final String VALUE = "${value}";
 
-	public static final String PARAM_REGEX = "\\$\\{value\\}";
+	public static final String VALUE_REGEX = "\\$\\{value\\}";
 
-	/**
-	 * 参数列表，使用逗号分隔
-	 */
-	@XmlAttribute
-	private String params;
+	public static final String DEFAULT_FORMATTER = "%".concat(VALUE).concat("%");
 
-	/**
-	 * 包装模板（默认值%${value}%）
-	 */
-	@XmlAttribute
-	private String formatter = "%".concat(VALUE).concat("%");
-
-	public String getParams() {
-		return params;
-	}
-
-	public void setParams(String params) {
-		this.params = params;
-	}
-
-	public String getFormatter() {
-		return formatter;
-	}
-
-	public void setFormatter(String formatter) {
-		this.formatter = formatter;
+	public WrapString() {
+		super(DEFAULT_FORMATTER);
 	}
 
 }
