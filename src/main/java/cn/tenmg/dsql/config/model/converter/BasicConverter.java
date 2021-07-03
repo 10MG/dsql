@@ -3,12 +3,15 @@ package cn.tenmg.dsql.config.model.converter;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 
-import cn.tenmg.dsql.config.model.Dsqls;
 import cn.tenmg.dsql.config.model.ParamsHandler;
 
-@XmlRootElement(namespace = Dsqls.NAMESPACE)
+/**
+ * 基本参数转换器
+ * 
+ * @author 赵伟均 wjzhao@aliyun.com
+ *
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BasicConverter implements ParamsHandler {
 

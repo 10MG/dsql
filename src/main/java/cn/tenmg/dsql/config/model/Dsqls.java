@@ -30,7 +30,7 @@ public class Dsqls implements Serializable {
 	/**
 	 * 动态SQL配置列表
 	 */
-	@XmlElement(name="dsql",namespace = NAMESPACE)
+	@XmlElement(name = "dsql", namespace = NAMESPACE)
 	private List<Dsql> dsqls;
 
 	public List<Dsql> getDsqls() {

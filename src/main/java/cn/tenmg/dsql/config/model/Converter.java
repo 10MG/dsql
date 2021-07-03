@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import cn.tenmg.dsql.config.model.converter.ToDate;
 import cn.tenmg.dsql.config.model.converter.ToNumber;
@@ -19,7 +18,6 @@ import cn.tenmg.dsql.config.model.converter.WrapString;
  * @author 赵伟均 wjzhao@aliyun.com
  *
  */
-@XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Converter implements Serializable {
 

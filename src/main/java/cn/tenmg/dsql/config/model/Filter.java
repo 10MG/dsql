@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import cn.tenmg.dsql.config.model.filter.Blank;
 import cn.tenmg.dsql.config.model.filter.Eq;
@@ -22,7 +21,6 @@ import cn.tenmg.dsql.config.model.filter.Lte;
  * @author 赵伟均 wjzhao@aliyun.com
  *
  */
-@XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Filter implements Serializable {
 

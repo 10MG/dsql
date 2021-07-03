@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * DSQL配置模型
@@ -14,7 +13,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 赵伟均 wjzhao@aliyun.com
  *
  */
-@XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Dsql implements Serializable {
 

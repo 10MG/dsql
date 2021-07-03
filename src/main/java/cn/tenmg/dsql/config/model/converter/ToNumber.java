@@ -2,9 +2,6 @@ package cn.tenmg.dsql.config.model.converter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import cn.tenmg.dsql.config.model.Dsqls;
 
 /**
  * 参数数字类型转换器配置模型
@@ -12,7 +9,6 @@ import cn.tenmg.dsql.config.model.Dsqls;
  * @author 赵伟均 wjzhao@aliyun.com
  *
  */
-@XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ToNumber extends BasicConverter {
 	/**
