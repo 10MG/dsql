@@ -80,4 +80,8 @@ public class XMLConfigLoader implements ConfigLoader {
 		}
 		return dsqls.getDsqls();
 	}
+	
+	public static void main(String args) throws JAXBException {
+		JAXBContext.newInstance(Dsqls.class).createUnmarshaller().unmarshal(new StringReader(""));
+	}
 }

@@ -4,12 +4,17 @@
 	targetNamespace="http://www.10mg.cn/schema/dsql"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-
-	<xsd:element name="dsql" maxOccurs="unbounded"
-		minOccurs="0" type="dsqlType">
-		<xsd:annotation>
-			<xsd:documentation><![CDATA[动态结构化查询语言（DSQL）]]></xsd:documentation>
-		</xsd:annotation>
+	<xsd:element name="dsqls">
+		<xsd:complexType>
+			<xsd:choice maxOccurs="unbounded" minOccurs="0">
+				<xsd:element name="dsql" maxOccurs="unbounded"
+					minOccurs="0" type="dsqlType">
+					<xsd:annotation>
+						<xsd:documentation><![CDATA[动态结构化查询语言（DSQL）]]></xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:complexType>
 	</xsd:element>
 
 	<xsd:complexType name="comparableFilter">
