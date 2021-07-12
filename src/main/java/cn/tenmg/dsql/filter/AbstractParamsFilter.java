@@ -4,11 +4,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import cn.tenmg.dsl.utils.StringUtils;
 import cn.tenmg.dsql.ParamsFilter;
 import cn.tenmg.dsql.config.model.filter.CompareableFilter;
 import cn.tenmg.dsql.utils.ParamsFilterUtils;
 import cn.tenmg.dsql.utils.ParamsFilterUtils.FilterTuple;
-import cn.tenmg.dsql.utils.StringUtils;
 
 public abstract class AbstractParamsFilter implements ParamsFilter<CompareableFilter> {
 

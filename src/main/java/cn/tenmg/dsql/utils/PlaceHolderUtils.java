@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.tenmg.dsl.utils.StringUtils;
+
 /**
  * 占位符工具类
  * 

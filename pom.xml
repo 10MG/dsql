@@ -6,7 +6,7 @@
 	<description>动态结构化查询语言（DSQL，Dynamic Structured Query Language）解析框架</description>
 	<groupId>cn.tenmg</groupId>
 	<artifactId>dsql</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>dsql</name>
@@ -19,6 +19,12 @@
 	</properties>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/cn.tenmg/dsl -->
+		<dependency>
+			<groupId>cn.tenmg</groupId>
+			<artifactId>dsl</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
@@ -49,7 +55,7 @@
 
 	<developers>
 		<developer>
-			<name>zhaoweijun</name>
+			<name>赵伟均</name>
 			<email>wjzhao@aliyun.com</email>
 			<organization>10MG</organization>
 		</developer>

@@ -4,9 +4,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import cn.tenmg.dsl.utils.StringUtils;
 import cn.tenmg.dsql.ParamsConverter;
 import cn.tenmg.dsql.config.model.converter.BasicConverter;
-import cn.tenmg.dsql.utils.StringUtils;
 
 public abstract class AbstractParamsConverter implements ParamsConverter<BasicConverter> {
 

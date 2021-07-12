@@ -1,7 +1,8 @@
 package cn.tenmg.dsql;
 
-import java.io.Serializable;
 import java.util.Map;
+
+import cn.tenmg.dsl.NamedScript;
 
 /**
  * 使用命名参数的SQL对象模型
@@ -9,7 +10,7 @@ import java.util.Map;
  * @author 赵伟均 wjzhao@aliyun.com
  *
  */
-public class NamedSQL implements Serializable {
+public class NamedSQL extends NamedScript {
 
 	/**
 	 * 
@@ -17,33 +18,20 @@ public class NamedSQL implements Serializable {
 	private static final long serialVersionUID = 3876821753500865601L;
 
 	/**
-	 * DSQL编号
+	 * 编号
 	 */
 	private String id;
-
-	/**
-	 * SQL
-	 */
-	private String script;
-
-	/**
-	 * 参数
-	 */
-	private Map<String, Object> params;
 
 	public NamedSQL() {
 		super();
 	}
 
-	public NamedSQL(String script) {
-		super();
-		this.script = script;
+	public NamedSQL(NamedScript namedScript) {
+		super(namedScript.getScript(), namedScript.getParams());
 	}
 
 	public NamedSQL(String script, Map<String, Object> params) {
-		super();
-		this.script = script;
-		this.params = params;
+		super(script, params);
 	}
 
 	public String getId() {
@@ -52,22 +40,6 @@ public class NamedSQL implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getScript() {
-		return script;
-	}
-
-	public void setScript(String script) {
-		this.script = script;
-	}
-
-	public Map<String, Object> getParams() {
-		return params;
-	}
-
-	public void setParams(Map<String, Object> params) {
-		this.params = params;
 	}
 
 }

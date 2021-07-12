@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.tenmg.dsl.utils.DSLUtils;
 import cn.tenmg.dsql.DSQLFactory;
 import cn.tenmg.dsql.NamedSQL;
 import cn.tenmg.dsql.ParamsConverter;
@@ -13,7 +14,6 @@ import cn.tenmg.dsql.config.model.Dsql;
 import cn.tenmg.dsql.config.model.Filter;
 import cn.tenmg.dsql.config.model.ParamsHandler;
 import cn.tenmg.dsql.utils.CollectionUtils;
-import cn.tenmg.dsql.utils.DSQLUtils;
 import cn.tenmg.dsql.utils.ParamsConverterUtils;
 import cn.tenmg.dsql.utils.ParamsFilterUtils;
 
@@ -62,7 +62,7 @@ public abstract class AbstractDSQLFactory implements DSQLFactory {
 		NamedSQL namedSQL = null;
 		Dsql obj = getDsql(dsql);
 		if (obj == null) {
-			namedSQL = DSQLUtils.parse(dsql, params);
+			namedSQL = new NamedSQL(DSLUtils.parse(dsql, params));
 		} else {
 			namedSQL = parse(obj, params);
 		}
@@ -92,7 +92,7 @@ public abstract class AbstractDSQLFactory implements DSQLFactory {
 				params = paramaters;
 			}
 		}
-		NamedSQL namedSQL = DSQLUtils.parse(dsql.getScript(), params);
+		NamedSQL namedSQL = new NamedSQL(DSLUtils.parse(dsql.getScript(), params));
 		namedSQL.setId(dsql.getId());
 		return namedSQL;
 	}
