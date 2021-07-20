@@ -141,8 +141,6 @@ public abstract class ParamsFilterUtils {
 	/**
 	 * 将所有值为空白字符串的参数过滤掉
 	 * 
-	 * @param name
-	 *            参数名
 	 * @param params
 	 *            参数查找表
 	 */
