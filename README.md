@@ -303,3 +303,7 @@ WHERE #[if(:curDepartmentId == '01') 1=1]
     </script>
 </dsql>
 ```
+
+# 六、相关链接
+
+DSL开源地址：https://gitee.com/tenmg/dsl
