@@ -145,18 +145,90 @@ WHERE #[if(:curDepartmentId == '01') 1=1]
   #[AND S.STAFF_NAME LIKE :staffName]
 ```
 
-2. 部门编号为01的员工可以查看所有员工信息，部门编号为02和03的员工可以查看本部门员工的信息，其他员工仅可以查看本部门跟自己职位一样的员工信息。假设当前员工职位参数为curPosition，所在部门参数为curDepartmentId，那么DSQL可以这样编写：
+01部门的查询数据范围为：
+
+STAFF_ID | STAFF_NAME | DEPARTMENT_ID | POSITION | STATUS
+---------|------------|---------------|----------|--------
+000001 |    赵一飞    | 01       | 总经理        | IN_SERVICE
+000002 |    王佳池    | 01       |副总经理       | IN_SERVICE
+000003 |    李辰立    | 02       |系统架构师     | IN_SERVICE
+000004 |    张彦云    | 03       |系统架构师     | IN_SERVICE
+000005 |    孙来笙    | 02       |高级软件工程师 | IN_SERVICE
+000006 |    钱等英    | 03       |高级软件工程师 | IN_SERVICE
+000007 |    周启      | 02       |软件工程师     | IN_SERVICE
+000008 |    吴川宜    | 02       |软件工程师     | IN_SERVICE
+000009 |    郑梦雪    | 03       |软件工程师     | IN_SERVICE
+000010 |    王成文    | 03       |软件工程师     | IN_SERVICE
+000011 |    冯松颖    | 02       |软件工程师     | OUT_OF_SERVICE
+000012 |    陈之文    | 03       |软件工程师     | OUT_OF_SERVICE
+
+02部门的查询数据范围为：
+
+STAFF_ID | STAFF_NAME | DEPARTMENT_ID | POSITION | STATUS
+---------|------------|---------------|----------|--------
+000003 |    李辰立    | 02       |系统架构师     | IN_SERVICE
+000005 |    孙来笙    | 02       |高级软件工程师 | IN_SERVICE
+000007 |    周启      | 02       |软件工程师     | IN_SERVICE
+000008 |    吴川宜    | 02       |软件工程师     | IN_SERVICE
+000011 |    冯松颖    | 02       |软件工程师     | OUT_OF_SERVICE
+
+03部门的查询数据范围为：
+
+STAFF_ID | STAFF_NAME | DEPARTMENT_ID | POSITION | STATUS
+---------|------------|---------------|----------|--------
+000004 |    张彦云    | 03       |系统架构师     | IN_SERVICE
+000006 |    钱等英    | 03       |高级软件工程师 | IN_SERVICE
+000009 |    郑梦雪    | 03       |软件工程师     | IN_SERVICE
+000010 |    王成文    | 03       |软件工程师     | IN_SERVICE
+000012 |    陈之文    | 03       |软件工程师     | OUT_OF_SERVICE
+
+2. 部门编号为01的员工可以查看所有员工信息，部门编号为02的员工可以查看本部门员工的信息，其他员工仅可以查看本部门跟自己职位一样的员工信息。假设当前员工职位参数为curPosition，所在部门参数为curDepartmentId，那么DSQL可以这样编写：
 
 ```
 SELECT
   *
 FROM STAFF_INFO S
 WHERE #[if(:curDepartmentId == '01') 1=1]
-  #[elseif(:curDepartmentId == '02' || :curDepartmentId == '03') S.DEPARTMENT_ID = :curDepartmentId]
+  #[elseif(:curDepartmentId == '02') S.DEPARTMENT_ID = :curDepartmentId]
   #[else S.DEPARTMENT_ID = :curDepartmentId AND S.POSITION = :curPosition]
   #[AND S.STAFF_ID = :staffId]
   #[AND S.STAFF_NAME LIKE :staffName]
 ```
+
+01部门的查询数据范围为：
+
+STAFF_ID | STAFF_NAME | DEPARTMENT_ID | POSITION | STATUS
+---------|------------|---------------|----------|--------
+000001 |    赵一飞    | 01       | 总经理        | IN_SERVICE
+000002 |    王佳池    | 01       |副总经理       | IN_SERVICE
+000003 |    李辰立    | 02       |系统架构师     | IN_SERVICE
+000004 |    张彦云    | 03       |系统架构师     | IN_SERVICE
+000005 |    孙来笙    | 02       |高级软件工程师 | IN_SERVICE
+000006 |    钱等英    | 03       |高级软件工程师 | IN_SERVICE
+000007 |    周启      | 02       |软件工程师     | IN_SERVICE
+000008 |    吴川宜    | 02       |软件工程师     | IN_SERVICE
+000009 |    郑梦雪    | 03       |软件工程师     | IN_SERVICE
+000010 |    王成文    | 03       |软件工程师     | IN_SERVICE
+000011 |    冯松颖    | 02       |软件工程师     | OUT_OF_SERVICE
+000012 |    陈之文    | 03       |软件工程师     | OUT_OF_SERVICE
+
+02部门的查询数据范围为：
+
+STAFF_ID | STAFF_NAME | DEPARTMENT_ID | POSITION | STATUS
+---------|------------|---------------|----------|--------
+000003 |    李辰立    | 02       |系统架构师     | IN_SERVICE
+000005 |    孙来笙    | 02       |高级软件工程师 | IN_SERVICE
+000007 |    周启      | 02       |软件工程师     | IN_SERVICE
+000008 |    吴川宜    | 02       |软件工程师     | IN_SERVICE
+000011 |    冯松颖    | 02       |软件工程师     | OUT_OF_SERVICE
+
+其他员工仅可查询本部门职位相同的员工信息，如工号000009的员工的查询数据范围为：
+
+STAFF_ID | STAFF_NAME | DEPARTMENT_ID | POSITION | STATUS
+---------|------------|---------------|----------|--------
+000009 |    郑梦雪    | 03       |软件工程师     | IN_SERVICE
+000010 |    王成文    | 03       |软件工程师     | IN_SERVICE
+000012 |    陈之文    | 03       |软件工程师     | OUT_OF_SERVICE
 
 ## 参数过滤器
 
