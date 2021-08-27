@@ -269,6 +269,13 @@ WHERE #[if(:curDepartmentId == '01') 1=1]
 </dsql>
 ```
 
+## 参与贡献
+
+1.  Fork 本仓库
+2.  新建 Feat_xxx 分支
+3.  提交代码
+4.  新建 Pull Request
+
 # 相关链接
 
 DSL开源地址：https://gitee.com/tenmg/dsl
