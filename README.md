@@ -29,7 +29,7 @@ DSQLFactory factory = new XMLFileDSQLFactory(basePackages, suffix);
 使用DSQL工厂解析DSQL为NamedSQL对象
 
 ```
-NamedSQL namedSQL = factory.parse(dsqlID, params);
+NamedSQL namedSQL = factory.parse(dsqlId, params);
 // 或者
 NamedSQL namedSQL = factory.parse(plainDSQLText, params);
 ```
