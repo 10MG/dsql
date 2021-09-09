@@ -4,8 +4,59 @@
 
 DSQL的全称是动态结构化查询语言（Dynamic Structured Query Language），他是一种对结构化查询语言（SQL）的一种扩展。DSQL基于[DSL](https://gitee.com/tenmg/dsl)实现，使用特殊字符#[]标记动态片段，当实际执行查询时，判断实际传入参数值是否为空（null）决定是否保留该片段，从而达到动态执行不同SQL的目的。以此来避免程序员手动拼接繁杂的SQL，使得程序员能从繁杂的业务逻辑中解脱出来。此外，DSQL还为查询参数增加过滤器和转换器，来对参数进行过滤和类型转换等；同时，DSQL脚本支持宏，来增强SQL的动态逻辑处理能力，避免使用函数导致索引破坏等。
 
-## 动态片段
+## 起步
 
+以基于Maven项目为例
+
+pom.xml添加依赖，${dsql.version}为版本号，可定义属性或直接使用版本号替换
+
+```
+<!-- https://mvnrepository.com/artifact/cn.tenmg/dsql -->
+<dependency>
+    <groupId>cn.tenmg</groupId>
+    <artifactId>dsql</artifactId>
+    <version>${dsql.version}</version>
+</dependency>
+```
+
+创建DSQL工厂
+
+```
+String basePackages = "cn.tenmg", suffix = ".dsql.xml";
+DSQLFactory factory = new XMLFileDSQLFactory(basePackages, suffix);
+```
+
+使用DSQL工厂解析DSQL为NamedSQL对象
+
+```
+NamedSQL namedSQL = factory.parse(dsqlID, params);
+// 或者
+NamedSQL namedSQL = factory.parse(plainDSQLText, params);
+```
+
+将NamedSQL对象转换为Script对象
+
+```
+Script<List<Object>> sql = DSLUtils.toScript(namedSQL.getScript(), namedSQL.getParams(),
+				JDBCParamsParser.getInstance());
+```
+
+将Script对象提交给JDBC执行
+
+```
+……
+List<Object> params = sql.getParams();
+PreparedStatement ps = con.prepareStatement(sql.getValue());
+if (params != null && !params.isEmpty()) {
+    for (int i = 0, size = params.size(); i < size; i++) {
+        ps.setObject(i + 1, params.get(i));
+    }
+}	
+ps.execute();
+……
+```
+
+## 动态片段
 
 DSQL使用特殊字符#[]标记动态片段，在一些数据库可视化管理工具中#[]之间的SQL被认为是注释，因此多数DSQL脚本可以在其上直接运行，几乎所有DSQL脚本经过少量修改即可在所有数据库管理工具中运行。动态片段可以是任意SQL片段，最常见的是用于查询条件上，查询参数使用冒号加参数名表示（例如，:staffName），这与许多数据库管理工具的表示方式是一致的。
 
