@@ -9,10 +9,10 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import cn.tenmg.dsl.utils.ClassUtils;
 import cn.tenmg.dsql.config.loader.XMLConfigLoader;
 import cn.tenmg.dsql.config.model.Dsql;
 import cn.tenmg.dsql.exception.IllegalConfigException;
-import cn.tenmg.dsql.utils.ClassUtils;
 import cn.tenmg.dsql.utils.CollectionUtils;
 import cn.tenmg.dsql.utils.FileUtils;
 
