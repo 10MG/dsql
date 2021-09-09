@@ -351,16 +351,30 @@ STAFF_ID | STAFF_NAME | DEPARTMENT_ID | POSITION | STATUS
 
 单行注释的前缀默认为`--`或`//`，例子：
 
-```
--- 这是单行注释……
-// 这是单行注释……
-```
 
-多行注释的前缀默认为`/*`后缀默认为*/，例子：
-
-```
-/* 这是多行
-   注释…… */
+```xml
+<dsql>
+    <filter>
+        <eq value="ALL" params="status" />
+    </filter>
+    <converter>
+        <wrap-string params="staffName" formatter="%${value}%"/>
+    </converter>
+    <script>
+        <![CDATA[
+            SELECT
+              *
+            FROM STAFF_INFO S
+            WHERE S.DEPARTMENT_ID = :curDepartmentId
+              #[AND S.STATUS = :status -- 这是单行注释……]
+              #[AND S.STAFF_ID = :staffId] // 这是单行注释……
+              #[AND S.STAFF_NAME LIKE :staffName /* 这是多行
+               注释…… */]
+              /* 这是多行
+                 注释…… */
+        ]]>
+    </script>
+</dsql>
 ```
 
 ## 配置文件
