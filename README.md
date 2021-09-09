@@ -19,7 +19,7 @@ pom.xml添加依赖，${dsql.version}为版本号，可定义属性或直接使�
 </dependency>
 ```
 
-创建DSQL工厂（由于创建DSQL工厂需要扫描XML配置文件，因此建议使用单例，在使用的地方注入即可）。
+创建DSQL工厂（该过程需要扫描XML配置文件，因此建议使用单例，在使用的地方注入即可）。
 
 ```
 String basePackages = "cn.tenmg", suffix = ".dsql.xml";
