@@ -37,6 +37,8 @@ NamedSQL namedSQL = factory.parse(plainDSQLText, params);
 将NamedSQL对象转换为Script对象
 
 ```
+Script<List<Object>> sql = factory.toJDBC(namedSQL, params);
+// 或者
 Script<List<Object>> sql = DSLUtils.toScript(namedSQL.getScript(), namedSQL.getParams(),
 				JDBCParamsParser.getInstance());
 ```
