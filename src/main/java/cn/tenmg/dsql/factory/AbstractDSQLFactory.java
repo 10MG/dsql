@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.tenmg.dsl.Script;
+import cn.tenmg.dsl.parser.JDBCParamsParser;
 import cn.tenmg.dsl.utils.DSLUtils;
 import cn.tenmg.dsql.DSQLFactory;
 import cn.tenmg.dsql.NamedSQL;
@@ -67,6 +69,16 @@ public abstract class AbstractDSQLFactory implements DSQLFactory {
 			namedSQL = parse(obj, params);
 		}
 		return namedSQL;
+	}
+
+	@Override
+	public Script<List<Object>> toJDBC(NamedSQL namedSQL) {
+		return toJDBC(namedSQL.getScript(), namedSQL.getParams());
+	}
+
+	@Override
+	public Script<List<Object>> toJDBC(String namedscript, Map<String, ?> params) {
+		return DSLUtils.toScript(namedscript, params, JDBCParamsParser.getInstance());
 	}
 
 	/**
