@@ -159,9 +159,9 @@ SELECT
    AND S.STAFF_NAME LIKE :staffName
 ```
 
-## 宏
+## 使用宏
 
-宏是动态结构化查询语言（DSQL）的重要组成部分，通过宏可以实现一些简单的逻辑处理。宏是基于Java内置的JavaScript引擎实现的，因此其语法是JavaScript语法，而不是Java。目前已实现的宏包括：
+宏是动态结构化查询语言（DSQL）的重要组成部分，它继承自[DSL](https://gitee.com/tenmg/dsl)，通过宏可以实现一些简单的逻辑处理。宏是基于Java内置的JavaScript引擎实现的，因此其语法是JavaScript语法，而不是Java。目前已实现的宏包括：
 
 ```
 #[if(……)]
