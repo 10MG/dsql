@@ -7,7 +7,7 @@ import cn.tenmg.dsql.config.model.ParamsHandler;
 /**
  * 参数过滤器
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public interface ParamsFilter<T extends ParamsHandler> {

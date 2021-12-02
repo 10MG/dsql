@@ -7,7 +7,7 @@ import cn.tenmg.dsl.NamedScript;
 /**
  * 使用命名参数的SQL对象模型
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public class NamedSQL extends NamedScript {

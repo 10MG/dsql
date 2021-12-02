@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 /**
  * 大于比较值字符串参过滤器配置模型
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)

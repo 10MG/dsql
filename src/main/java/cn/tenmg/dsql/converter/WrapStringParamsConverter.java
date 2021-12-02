@@ -6,7 +6,7 @@ import cn.tenmg.dsql.exception.IllegalConfigException;
 /**
  * 字符串参数包装转换器
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public class WrapStringParamsConverter extends AbstractParamsConverter {

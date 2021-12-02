@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 参数处理器配置模型
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public interface ParamsHandler extends Serializable {

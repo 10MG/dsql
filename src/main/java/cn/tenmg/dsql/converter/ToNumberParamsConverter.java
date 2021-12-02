@@ -8,7 +8,7 @@ import cn.tenmg.dsql.utils.DecimalUtils;
 /**
  * 参数数字类型转换器
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public class ToNumberParamsConverter extends AbstractParamsConverter {

@@ -22,7 +22,7 @@ import cn.tenmg.dsql.utils.ParamsFilterUtils;
 /**
  * 抽象动态结构化查询语言工厂
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public abstract class AbstractDSQLFactory implements DSQLFactory {
@@ -98,10 +98,10 @@ public abstract class AbstractDSQLFactory implements DSQLFactory {
 			}
 			Converter converter = dsql.getConverter();
 			if (converter != null) {
-				Map<String, Object> paramaters = new HashMap<String, Object>();
-				paramaters.putAll(params);
-				convert(paramaters, converter);
-				params = paramaters;
+				Map<String, Object> parameters = new HashMap<String, Object>();
+				parameters.putAll(params);
+				convert(parameters, converter);
+				params = parameters;
 			}
 		}
 		NamedSQL namedSQL = new NamedSQL(DSLUtils.parse(dsql.getScript(), params));

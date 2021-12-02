@@ -19,7 +19,7 @@ import cn.tenmg.dsql.utils.FileUtils;
 /**
  * 基于XML文件配置的动态结构化查询语言工厂
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public class XMLFileDSQLFactory extends AbstractDSQLFactory {

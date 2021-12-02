@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 /**
  * 参数数字类型转换器配置模型
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)

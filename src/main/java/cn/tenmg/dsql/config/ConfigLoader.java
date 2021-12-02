@@ -10,7 +10,7 @@ import cn.tenmg.dsql.config.model.Dsql;
 /**
  * 配置加载器
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public interface ConfigLoader {

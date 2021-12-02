@@ -10,7 +10,7 @@ import cn.tenmg.dsql.config.model.Dsql;
 /**
  * 动态结构化查询语言工厂
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public interface DSQLFactory extends Serializable {

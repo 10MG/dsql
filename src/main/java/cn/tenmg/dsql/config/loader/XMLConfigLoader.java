@@ -18,7 +18,7 @@ import cn.tenmg.dsql.exception.IllegalConfigException;
 /**
  * XML配置加载器
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public class XMLConfigLoader implements ConfigLoader {

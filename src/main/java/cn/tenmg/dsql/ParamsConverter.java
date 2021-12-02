@@ -7,7 +7,7 @@ import cn.tenmg.dsql.config.model.ParamsHandler;
 /**
  * 参数类型转换器
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public interface ParamsConverter<T extends ParamsHandler> {

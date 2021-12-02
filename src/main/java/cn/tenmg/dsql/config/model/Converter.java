@@ -15,7 +15,7 @@ import cn.tenmg.dsql.config.model.converter.WrapString;
 /**
  * 参数类型转换器容器
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)

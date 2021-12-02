@@ -6,7 +6,7 @@ import java.text.ParseException;
 /**
  * 实数工具类
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public abstract class DecimalUtils {

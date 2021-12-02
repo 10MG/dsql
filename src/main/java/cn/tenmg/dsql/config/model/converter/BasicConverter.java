@@ -9,7 +9,7 @@ import cn.tenmg.dsql.config.model.ParamsHandler;
 /**
  * 基本参数转换器
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)

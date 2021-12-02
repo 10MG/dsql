@@ -10,7 +10,7 @@ import cn.tenmg.dsql.utils.ParamsFilterUtils;
 /**
  * 空白字符串参数过滤器
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public class BlankParamsFilter implements ParamsFilter<Blank> {

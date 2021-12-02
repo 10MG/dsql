@@ -9,7 +9,7 @@ import cn.tenmg.dsql.utils.DateUtils;
 /**
  * 参数日期类型转换器
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 public class ToDateParamsConverter extends AbstractParamsConverter {

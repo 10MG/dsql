@@ -11,7 +11,7 @@ import cn.tenmg.dsql.config.model.ParamsHandler;
 /**
  * 过滤器工具类
  * 
- * @author 赵伟均 wjzhao@aliyun.com
+ * @author June wjzhao@aliyun.com
  *
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
