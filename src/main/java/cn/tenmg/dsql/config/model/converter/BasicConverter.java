@@ -11,6 +11,7 @@ import cn.tenmg.dsql.config.model.ParamsHandler;
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BasicConverter implements ParamsHandler {

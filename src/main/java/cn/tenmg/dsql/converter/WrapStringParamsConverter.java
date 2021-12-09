@@ -8,6 +8,7 @@ import cn.tenmg.dsql.exception.IllegalConfigException;
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 public class WrapStringParamsConverter extends AbstractParamsConverter {
 

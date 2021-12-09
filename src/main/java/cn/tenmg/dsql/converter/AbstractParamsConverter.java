@@ -8,6 +8,13 @@ import cn.tenmg.dsl.utils.StringUtils;
 import cn.tenmg.dsql.ParamsConverter;
 import cn.tenmg.dsql.config.model.converter.BasicConverter;
 
+/**
+ * 参数转换器抽象实现类
+ * 
+ * @author June wjzhao@aliyun.com
+ *
+ * @since 1.0.0
+ */
 public abstract class AbstractParamsConverter implements ParamsConverter<BasicConverter> {
 
 	abstract boolean isValid(String formatter);

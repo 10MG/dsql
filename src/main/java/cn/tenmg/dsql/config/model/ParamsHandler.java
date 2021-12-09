@@ -7,6 +7,7 @@ import java.io.Serializable;
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 public interface ParamsHandler extends Serializable {
 	

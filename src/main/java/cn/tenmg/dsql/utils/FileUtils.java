@@ -16,11 +16,13 @@ import java.util.jar.JarEntry;
 import cn.tenmg.dsl.utils.ClassUtils;
 
 /**
- * 文件工具类
+ * 文件工具类。已废弃，将在下一个版本移除，请使用cn.tenmg.dsl.utils.FileUtils替换
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
+@Deprecated
 public abstract class FileUtils {
 
 	private static final String JAR = "jar";

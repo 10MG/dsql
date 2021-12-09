@@ -10,6 +10,15 @@ import cn.tenmg.dsql.config.model.filter.CompareableFilter;
 import cn.tenmg.dsql.utils.ParamsFilterUtils;
 import cn.tenmg.dsql.utils.ParamsFilterUtils.FilterTuple;
 
+/**
+ * 
+ * 参数过滤器抽象实现类
+ * 
+ * @author June wjzhao@aliyun.com
+ * 
+ * @since 1.0.0
+ *
+ */
 public abstract class AbstractParamsFilter implements ParamsFilter<CompareableFilter> {
 
 	/**

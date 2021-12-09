@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Dsql implements Serializable {

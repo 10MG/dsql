@@ -17,6 +17,7 @@ import cn.tenmg.dsql.config.model.converter.WrapString;
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Converter implements Serializable {

@@ -6,21 +6,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cn.tenmg.dsl.utils.ClassUtils;
+import cn.tenmg.dsl.utils.FileUtils;
 import cn.tenmg.dsql.config.loader.XMLConfigLoader;
 import cn.tenmg.dsql.config.model.Dsql;
 import cn.tenmg.dsql.exception.IllegalConfigException;
 import cn.tenmg.dsql.utils.CollectionUtils;
-import cn.tenmg.dsql.utils.FileUtils;
 
 /**
  * 基于XML文件配置的动态结构化查询语言工厂
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 public class XMLFileDSQLFactory extends AbstractDSQLFactory {
 
@@ -29,7 +30,7 @@ public class XMLFileDSQLFactory extends AbstractDSQLFactory {
 	 */
 	private static final long serialVersionUID = 8125151681490092061L;
 
-	private static final Logger log = LogManager.getLogger(XMLFileDSQLFactory.class);
+	private static final Logger log = LoggerFactory.getLogger(XMLFileDSQLFactory.class);
 
 	private final Map<String, Dsql> dsqls = new HashMap<String, Dsql>();
 

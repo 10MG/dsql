@@ -13,6 +13,7 @@ import java.util.Set;
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 public abstract class CollectionUtils {
 

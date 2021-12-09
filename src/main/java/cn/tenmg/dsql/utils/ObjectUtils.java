@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 对象工具类
+ * 对象工具类。已废弃，将在下一个版本移除，请使用cn.tenmg.dsl.utils.ObjectUtils替换
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
+@Deprecated
 public abstract class ObjectUtils {
 
 	private static final Map<Class<?>, Map<String, Field>> fieldMap = new HashMap<Class<?>, Map<String, Field>>();

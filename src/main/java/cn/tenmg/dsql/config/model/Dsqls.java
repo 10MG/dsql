@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 @XmlRootElement(namespace = Dsqls.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)

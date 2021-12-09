@@ -20,6 +20,7 @@ import cn.tenmg.dsql.config.model.filter.Lte;
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Filter implements Serializable {

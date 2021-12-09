@@ -1,24 +1,40 @@
 package cn.tenmg.dsql.utils;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.tenmg.dsl.utils.DSLUtils;
+import cn.tenmg.dsl.utils.ParamsUtils;
 import cn.tenmg.dsl.utils.StringUtils;
 
 /**
  * 占位符工具类
  * 
  * @author June wjzhao@aliyun.com
- *
+ * 
+ * @since 1.0.0
  */
 public abstract class PlaceHolderUtils {
 
 	private static final Pattern paramPattern = Pattern.compile("\\$\\{[^}]+\\}"),
 			arrayPattern = Pattern.compile("\\[[^\\]]+\\]");
+
+	private static final HashSet<Character> ENCODE_CHARACTERS = new HashSet<Character>() {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -1974796098018071303L;
+
+		{
+			add('$');
+		}
+	};
 
 	/**
 	 * 将模板字符串中占位符替换为指定的参数
@@ -50,33 +66,70 @@ public abstract class PlaceHolderUtils {
 	 *            参数集
 	 * @return 返回将模板字符串中占位符替换为指定的参数后的字符串
 	 */
-	public static String replace(String tpl, Map<? extends CharSequence, ? extends CharSequence> params) {
+	public static String replace(String tpl, Map<?, ?> params) {
 		if (StringUtils.isBlank(tpl)) {
 			return tpl;
-		}
-		if (!CollectionUtils.isEmpty(params)) {
+		} else if (params == null || params.isEmpty()) {
+			return tpl;
+		} else {
 			StringBuffer sb = new StringBuffer();
 			Matcher m = paramPattern.matcher(tpl);
-			String name;
+			String name, s;
 			Object value;
+			boolean encode = false;
 			while (m.find()) {
 				name = m.group();
-				value = getParam(params, name.substring(2, name.length() - 1));
-				if (value != null) {
-					m.appendReplacement(sb, value.toString());
-				} else {
+				value = ParamsUtils.getParam(params, name.substring(2, name.length() - 1));
+				if (value == null) {
 					m.appendReplacement(sb, "");
+				} else {
+					s = value.toString();
+					char c;
+					StringBuilder encoded = new StringBuilder();
+					for (int i = 0, len = s.length(); i < len; i++) {
+						c = s.charAt(i);
+						if (c == DSLUtils.BACKSLASH) {
+							encode = true;
+							encoded.append(DSLUtils.BACKSLASH).append(DSLUtils.BACKSLASH).append(DSLUtils.BACKSLASH)
+									.append(DSLUtils.BACKSLASH);
+						} else {
+							if (ENCODE_CHARACTERS.contains(c)) {
+								encode = true;
+								encoded.append(DSLUtils.BACKSLASH);
+							}
+							encoded.append(c);
+						}
+					}
+					m.appendReplacement(sb, encoded.toString());
 				}
+			}
+			if (encode) {
+				StringBuffer uncode = new StringBuffer();
+				int i = 0, len = sb.length();
+				char c, n;
+				while (i < len) {
+					c = sb.charAt(i);
+					if (++i < len && c == DSLUtils.BACKSLASH) {
+						n = sb.charAt(i);
+						if (n == DSLUtils.BACKSLASH) {
+							i++;
+							uncode.append(c);
+						} else if (!ENCODE_CHARACTERS.contains(n)) {
+							uncode.append(c);
+						}
+					} else {
+						uncode.append(c);
+					}
+				}
+				sb = uncode;
 			}
 			m.appendTail(sb);
 			return sb.toString();
-		} else {
-			return tpl;
 		}
 	}
 
 	/**
-	 * 获取参数集中的参数值。参数名支持使用“key.name”访问参数值的属性值，层级数不限，支持使用“[*]”访问数组值，维数不限，“key.name”和“[*]”也可以配合使用
+	 * 获取参数集中的参数值。参数名支持使用“key.name”访问参数值的属性值，层级数不限，支持使用“[*]”访问数组值，维数不限，“key.name”和“[*]”也可以配合使用。已废弃，将在下一版本移除，请使用cn.tenmg.dsl.utils.ParamsUtils.getParam替换
 	 * 
 	 * @param params
 	 *            参数集
@@ -84,6 +137,7 @@ public abstract class PlaceHolderUtils {
 	 *            参数名
 	 * @return 如果参数集的参数存在则，返回它的值；否则，返回null
 	 */
+	@Deprecated
 	public static Object getParam(Map<? extends CharSequence, ?> params, String name) {
 		Object value = params.get(name);
 		if (value == null) {

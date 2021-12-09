@@ -12,6 +12,7 @@ import cn.tenmg.dsql.config.model.Dsql;
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 public interface ConfigLoader {
 

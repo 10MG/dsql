@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * 
  * @author June wjzhao@aliyun.com
  *
+ * @since 1.0.0
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Eq extends CompareableFilter {
