@@ -380,15 +380,27 @@ STAFF_ID | STAFF_NAME | DEPARTMENT_ID | POSITION | STATUS
 
 ### to-number
 
-参数数字类型转换器。用于将参数转换为数值类型，通常是从 java.lang.String 类型转换为 java.lang.Number 类型。属性 params 表示需要转换的参数名称，支持使用 `*` 表示通配符，多个参数名之间使用逗号（,）分隔；属性 formatter 表示格式模板，具体的 java.lang.Number 类型会根据 formatter 属性格式化确定。
+将参数转换为`java.lang.Number` 类型的转换器。通常是从 `java.lang.String` 类型转换为 `java.lang.Number` 类型。属性 params 表示需要转换的参数名称，支持使用 `*` 表示通配符，多个参数名之间使用逗号（,）分隔；属性 formatter 表示格式模板，具体的 java.lang.Number 类型会根据 formatter 属性格式化确定。
 
 ### to-date
 
-参数日期类型转换器。用于将参数转换为 java.util.Date 类型，通常是从 java.lang.String 类型转换为 java.util.Date 类型。属性 params 表示需要转换的参数名称，支持使用 `*` 表示通配符，多个参数名之间使用逗号（,）分隔；属性 formatter 表示格式化模板。日期模板表示详见Java规范。
+将参数转为 `java.util.Date` 类型的转换器。通常是从 `java.lang.String` 类型转换为 `java.util.Date` 类型。属性 params 表示需要转换的参数名称，支持使用 `*` 表示通配符，多个参数名之间使用逗号（,）分隔；属性 formatter 表示格式化模板。日期模板表示详见Java规范。
+
+### date-add
+
+对 `java.util.Date` 类型的参数做加法运算的转换器。属性 params 表示需要转换的参数名称，支持使用 `*` 表示通配符，多个参数名之间使用逗号（,）分隔；属性 amount 为整形，表示加法运算的时间量；属性 unit 为时间单位，可选值：`year/month/day/hour/minute/second/millisecond`，分别对应：年/月/日/时/分/秒/毫秒。
+
+### to-string
+
+将参数转换为 `java.lang.String` 类型的转换器。属性 params 表示需要转换的参数名称，支持使用 `*` 表示通配符，多个参数名之间使用逗号（,）分隔；属性 formatter 表示格式化模板，当参数值为 `java.lang.Number`、`java.util.Date`、`java.util.Calendar` 的实例时，通过格式模板将对象格式化为字符串（如 `#,###.00`、`yyyy-MM-dd HH:mm:ss` 等）。
 
 ### wrap-string
 
 字符串参数包装转换器。用于将字符串按指定模板包装。属性 params 表示需要转换的参数名称，支持使用 `*` 表示通配符，多个参数名之间使用逗号（,）分隔；属性 formatter 表示包装模板。默认值为 `%${value}%`，其中 `${value}` 表示参数值，运行时会替换。
+
+### split
+
+将类型为 `java.lang.String` 的非 `null` 参数值进行分割的转换器。属性 params 表示需要转换的参数名称，支持使用 `*` 表示通配符，多个参数名之间使用逗号（,）分隔；属性 regex 分割正则表达式（如 `,` 等），也可以使用 `<regex>` 子标签定义，特别是带有 XML 需要转义的字符时（如 `<regex><![CDATA[&]]><regex>` 等）；limit 表示最大分割子字符串数，可缺省，指定时，必须为大于 1 的正整数。
 
 ## 使用技巧
 
