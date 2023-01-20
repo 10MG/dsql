@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dsqls xmlns="http://www.10mg.cn/schema/dsql"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.10mg.cn/schema/dsql http://www.10mg.cn/schema/dsql-1.3.xsd ">
+	<dsql id="find_staff_info">
+		<converter>
+			<to-number params="enabled" formatter=""/>
+			<to-string params="state" formatter="#" />
+			<to-date params="beginDate,endDate" formatter="yyyy-MM-dd" />
+			<date-add params="endDate" amount="1" unit="day" />
+			<split params="positions" regex="," limit="500"/>
+			<wrap-string params="staffName" formatter="%${value}%" />
+		</converter>
+		<filter>
+			<blank params="null,emptyString,blankSpace"/>
+			<eq value="0" params="eq,noteq"/>
+			<gt value="0" params="gt,notgt"/>
+			<gte value="0" params="gte,notgte"/>
+			<lt value="0" params="lt,notlt"/>
+			<lte value="0" params="lte,notlte"/>
+		</filter>
+		<script><![CDATA[
+		SELECT
+		  STAFF_ID,
+		  STAFF_NAME,
+		  POSITION,
+		  STATE,
+		  CREATE_TIME
+		FROM STAFF_INFO
+		WHERE enabled = :enabled
+		  #[AND STATE = :state]
+		  #[AND CREATE_TIME >= :beginDate]
+		  #[AND CREATE_TIME < :endDate]
+		  #[AND POSITION in (:positions)]
+		  #[AND STAFF_NAME LIKE :staffName]
+		  #[:null]
+		  #[:emptyString]
+		  #[:blankSpace]
+		  #[:eq]
+		  #[AND 0 != :noteq]
+		  #[:gt]
+		  #[AND 0 <= :notgt]
+		  #[:gte]
+		  #[AND 0 < :notgte]
+		  #[:lt]
+		  #[AND 0 >= :notlt]
+		  #[:lte]
+		  #[AND 0 > :notlte]
+		ORDER BY STAFF_NAME
+		]]></script>
+	</dsql>
+</dsqls>

@@ -1,0 +1,6 @@
+cn.tenmg.dsql.model.converter.DateAddTest
+cn.tenmg.dsql.model.converter.SplitTest
+cn.tenmg.dsql.model.converter.ToDateTest
+cn.tenmg.dsql.model.converter.ToNumberTest
+cn.tenmg.dsql.model.converter.ToStringTest
+cn.tenmg.dsql.model.converter.WrapStringTest

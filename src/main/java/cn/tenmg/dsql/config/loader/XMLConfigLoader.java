@@ -26,6 +26,8 @@ public class XMLConfigLoader implements ConfigLoader {
 
 	private static final XMLConfigLoader INSTANCE = new XMLConfigLoader();
 
+	private static volatile JAXBContext context;
+	
 	private XMLConfigLoader() {
 		super();
 	}
@@ -37,7 +39,7 @@ public class XMLConfigLoader implements ConfigLoader {
 	@Override
 	public List<Dsql> load(String s) {
 		try {
-			return convert((Dsqls) createUnmarshaller().unmarshal(new StringReader(s)));
+			return convert((Dsqls) newUnmarshaller().unmarshal(new StringReader(s)));
 		} catch (JAXBException e) {
 			throw new IllegalConfigException("加载DSQL配置失败", e);
 		}
@@ -46,7 +48,7 @@ public class XMLConfigLoader implements ConfigLoader {
 	@Override
 	public List<Dsql> load(File file) {
 		try {
-			return convert((Dsqls) createUnmarshaller().unmarshal(file));
+			return convert((Dsqls) newUnmarshaller().unmarshal(file));
 		} catch (JAXBException e) {
 			throw new IllegalConfigException("加载DSQL配置失败", e);
 		}
@@ -55,7 +57,7 @@ public class XMLConfigLoader implements ConfigLoader {
 	@Override
 	public List<Dsql> load(FileReader fr) {
 		try {
-			return convert((Dsqls) createUnmarshaller().unmarshal(fr));
+			return convert((Dsqls) newUnmarshaller().unmarshal(fr));
 		} catch (JAXBException e) {
 			throw new IllegalConfigException("加载DSQL配置失败", e);
 		}
@@ -64,14 +66,16 @@ public class XMLConfigLoader implements ConfigLoader {
 	@Override
 	public List<Dsql> load(InputStream is) {
 		try {
-			return convert((Dsqls) createUnmarshaller().unmarshal(is));
+			return convert((Dsqls) newUnmarshaller().unmarshal(is));
 		} catch (JAXBException e) {
 			throw new IllegalConfigException("加载DSQL配置失败", e);
 		}
 	}
 
-	private Unmarshaller createUnmarshaller() throws JAXBException {
-		JAXBContext context = JAXBContext.newInstance(Dsqls.class);
+	private Unmarshaller newUnmarshaller() throws JAXBException {
+		if (context == null) {
+			context = JAXBContext.newInstance(Dsqls.class);
+		}
 		return context.createUnmarshaller();
 	}
 
@@ -81,8 +85,5 @@ public class XMLConfigLoader implements ConfigLoader {
 		}
 		return dsqls.getDsqls();
 	}
-	
-	public static void main(String args) throws JAXBException {
-		JAXBContext.newInstance(Dsqls.class).createUnmarshaller().unmarshal(new StringReader(""));
-	}
+
 }

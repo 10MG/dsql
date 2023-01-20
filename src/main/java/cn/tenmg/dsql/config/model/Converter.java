@@ -8,8 +8,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 
+import cn.tenmg.dsl.ParamsConverter;
+import cn.tenmg.dsql.config.model.converter.DateAdd;
+import cn.tenmg.dsql.config.model.converter.Split;
 import cn.tenmg.dsql.config.model.converter.ToDate;
 import cn.tenmg.dsql.config.model.converter.ToNumber;
+import cn.tenmg.dsql.config.model.converter.ToString;
 import cn.tenmg.dsql.config.model.converter.WrapString;
 
 /**
@@ -27,17 +31,19 @@ public class Converter implements Serializable {
 	 */
 	private static final long serialVersionUID = -5619546911375538778L;
 
-	@XmlElements({ @XmlElement(name = "to-date", type = ToDate.class, namespace = Dsqls.NAMESPACE), // 参数日期类型转换器
-			@XmlElement(name = "to-number", type = ToNumber.class, namespace = Dsqls.NAMESPACE), // 参数数字类型转换器
-			@XmlElement(name = "wrap-string", type = WrapString.class, namespace = Dsqls.NAMESPACE) // 字符串参数包装转换器
-	})
-	private List<ParamsHandler> paramsConverters;
+	@XmlElements({ @XmlElement(name = "to-date", type = ToDate.class, namespace = Dsqls.NAMESPACE),
+			@XmlElement(name = "date-add", type = DateAdd.class, namespace = Dsqls.NAMESPACE),
+			@XmlElement(name = "to-number", type = ToNumber.class, namespace = Dsqls.NAMESPACE),
+			@XmlElement(name = "to-string", type = ToString.class, namespace = Dsqls.NAMESPACE),
+			@XmlElement(name = "wrap-string", type = WrapString.class, namespace = Dsqls.NAMESPACE),
+			@XmlElement(name = "split", type = Split.class, namespace = Dsqls.NAMESPACE) })
+	private List<ParamsConverter<?>> paramsConverters;
 
-	public List<ParamsHandler> getParamsConverters() {
+	public List<ParamsConverter<?>> getParamsConverters() {
 		return paramsConverters;
 	}
 
-	public void setParamsConverters(List<ParamsHandler> paramsConverters) {
+	public void setParamsConverters(List<ParamsConverter<?>> paramsConverters) {
 		this.paramsConverters = paramsConverters;
 	}
 

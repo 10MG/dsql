@@ -10,11 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cn.tenmg.dsl.utils.ClassUtils;
+import cn.tenmg.dsl.utils.CollectionUtils;
 import cn.tenmg.dsl.utils.FileUtils;
 import cn.tenmg.dsql.config.loader.XMLConfigLoader;
 import cn.tenmg.dsql.config.model.Dsql;
 import cn.tenmg.dsql.exception.IllegalConfigException;
-import cn.tenmg.dsql.utils.CollectionUtils;
 
 /**
  * 基于XML文件配置的动态结构化查询语言工厂
@@ -32,7 +32,7 @@ public class XMLFileDSQLFactory extends AbstractDSQLFactory {
 
 	private static final Logger log = LoggerFactory.getLogger(XMLFileDSQLFactory.class);
 
-	private final Map<String, Dsql> dsqls = new HashMap<String, Dsql>();
+	private final Map<String, Dsql> dsqls = new HashMap<String, Dsql>(512);
 
 	private String basePackages;
 
@@ -81,13 +81,13 @@ public class XMLFileDSQLFactory extends AbstractDSQLFactory {
 				try {
 					log.info("Scan package: ".concat(basePackage));
 					fileNames = FileUtils.scanPackage(basePackage, suffix);
-					if (!CollectionUtils.isEmpty(fileNames)) {
+					if (CollectionUtils.isNotEmpty(fileNames)) {
 						for (int j = 0, size = fileNames.size(); j < size; j++) {
 							fileName = fileNames.get(j);
 							log.info("Start parsing " + fileName);
 							List<Dsql> dsqls = XMLConfigLoader.getInstance()
 									.load(ClassUtils.getDefaultClassLoader().getResourceAsStream(fileName));
-							if (!CollectionUtils.isEmpty(dsqls)) {
+							if (CollectionUtils.isNotEmpty(dsqls)) {
 								for (Iterator<Dsql> dit = dsqls.iterator(); dit.hasNext();) {
 									Dsql dsql = dit.next();
 									this.dsqls.put(dsql.getId(), dsql);

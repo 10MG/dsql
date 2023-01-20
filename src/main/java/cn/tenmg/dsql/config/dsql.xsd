@@ -8,7 +8,7 @@
 		<xsd:complexType>
 			<xsd:choice maxOccurs="unbounded" minOccurs="0">
 				<xsd:element name="dsql" maxOccurs="unbounded"
-					minOccurs="0" type="dsqlType">
+					minOccurs="0" type="Dsql">
 					<xsd:annotation>
 						<xsd:documentation><![CDATA[动态结构化查询语言（DSQL）]]></xsd:documentation>
 					</xsd:annotation>
@@ -17,30 +17,223 @@
 		</xsd:complexType>
 	</xsd:element>
 
-	<xsd:complexType name="comparableFilter">
+	<xsd:complexType name="BasicParamHandler">
 		<xsd:attribute name="params" type="xsd:string"
-			default="*">
-			<xsd:annotation>
-				<xsd:documentation><![CDATA[参数列表，使用逗号分隔。默认*，代表全部]]></xsd:documentation>
-			</xsd:annotation>
-		</xsd:attribute>
-
-		<xsd:attribute name="value" type="xsd:string"
 			use="required">
 			<xsd:annotation>
-				<xsd:documentation><![CDATA[供比较的值]]></xsd:documentation>
+				<xsd:documentation><![CDATA[参数名表达式。可使用 * 作为通配符，多个参数表达式之间使用逗号分隔。]]></xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
 	</xsd:complexType>
 
-	<xsd:complexType name="dsqlType">
+	<xsd:complexType name="ComparableFilter">
+		<xsd:complexContent>
+			<xsd:extension base="BasicParamHandler">
+				<xsd:attribute name="value" type="xsd:string"
+					use="required">
+					<xsd:annotation>
+						<xsd:documentation><![CDATA[供比较的值]]></xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Dsql">
 		<xsd:sequence>
+			<xsd:element name="converter" maxOccurs="1" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation><![CDATA[参数转换器]]></xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:choice>
+						<xsd:element name="to-date" maxOccurs="unbounded"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation><![CDATA[将参数转换为 java.util.Date 类型的转换器]]></xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="BasicParamHandler">
+										<xsd:attribute name="formatter"
+											type="xsd:string" default="yyyy-MM-dd">
+											<xsd:annotation>
+												<xsd:documentation><![CDATA[格式模板（默认值yyyy-MM-dd）]]></xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<xsd:element name="date-add" maxOccurs="unbounded"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation><![CDATA[时间参数加法运算转换器]]></xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="BasicParamHandler">
+										<xsd:attribute name="amount" type="xsd:int"
+											use="required">
+											<xsd:annotation>
+												<xsd:documentation><![CDATA[时间量。为负值时，相当于减法]]></xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+
+										<xsd:attribute name="unit" type="xsd:string"
+											default="day">
+											<xsd:annotation>
+												<xsd:documentation><![CDATA[时间单位]]></xsd:documentation>
+											</xsd:annotation>
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+													<xsd:enumeration value="year">
+														<xsd:annotation>
+															<xsd:documentation>年</xsd:documentation>
+														</xsd:annotation>
+													</xsd:enumeration>
+													<xsd:enumeration value="month">
+														<xsd:annotation>
+															<xsd:documentation>月</xsd:documentation>
+														</xsd:annotation>
+													</xsd:enumeration>
+													<xsd:enumeration value="day">
+														<xsd:annotation>
+															<xsd:documentation>日</xsd:documentation>
+														</xsd:annotation>
+													</xsd:enumeration>
+													<xsd:enumeration value="hour">
+														<xsd:annotation>
+															<xsd:documentation>时</xsd:documentation>
+														</xsd:annotation>
+													</xsd:enumeration>
+													<xsd:enumeration value="minute">
+														<xsd:annotation>
+															<xsd:documentation>分</xsd:documentation>
+														</xsd:annotation>
+													</xsd:enumeration>
+													<xsd:enumeration value="second">
+														<xsd:annotation>
+															<xsd:documentation>秒</xsd:documentation>
+														</xsd:annotation>
+													</xsd:enumeration>
+													<xsd:enumeration value="millisecond">
+														<xsd:annotation>
+															<xsd:documentation>毫秒</xsd:documentation>
+														</xsd:annotation>
+													</xsd:enumeration>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:attribute>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<xsd:element name="to-number" maxOccurs="unbounded"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation><![CDATA[将参数值转换为数字类型的转换器]]></xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="BasicParamHandler">
+										<xsd:attribute name="formatter"
+											type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation><![CDATA[格式模板。如#,###.00等]]></xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<xsd:element name="wrap-string" maxOccurs="unbounded"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation><![CDATA[对 java.lang.String 类型参数进行包装的转换器]]></xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="BasicParamHandler">
+										<xsd:attribute name="formatter"
+											default="%${value}%">
+											<xsd:annotation>
+												<xsd:documentation><![CDATA[包装模板（默认值%${value}%）]]></xsd:documentation>
+											</xsd:annotation>
+											<xsd:simpleType>
+												<xsd:union memberTypes="NormalLikes xsd:string"></xsd:union>
+											</xsd:simpleType>
+										</xsd:attribute>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<xsd:element name="to-string" maxOccurs="unbounded"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation><![CDATA[将参数转换为 java.lang.String 类型的转换器]]></xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="BasicParamHandler">
+										<xsd:attribute name="formatter"
+											type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation><![CDATA[格式模板。当参数值为 java.lang.Number、java.util.Date、java.util.Calendar 的实例时，通过格式模板将对象格式化为字符串。如 #,###.00、yyyy-MM-dd HH:mm:ss 等]]></xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+
+						<xsd:element name="split" maxOccurs="unbounded"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation><![CDATA[将类型为 java.lang.String 的非 null 参数值进行分割的转换器]]></xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="BasicParamHandler">
+										<xsd:attribute name="regex" type="xsd:string"
+											default="," use="required">
+											<xsd:annotation>
+												<xsd:documentation><![CDATA[字符串分割正则表达式。由于XML解析框架的原因，部分特殊字符需要转义。也可以使用 <regex> 子标签的 CDATA 来定义，以避免繁琐的转义]]></xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+										<xsd:attribute name="limit" type="xsd:integer">
+											<xsd:annotation>
+												<xsd:documentation><![CDATA[最大分割子字符串数。指定时，必须为大于1的正整数]]></xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+										<xsd:choice>
+											<xsd:element name="regex" type="xsd:string"
+												minOccurs="0" maxOccurs="1">
+												<xsd:annotation>
+													<xsd:documentation><![CDATA[regex 属性的替代。当遇到部分需要转义的字符时，可以使用该标签的 CDATA 来定义，以避免繁琐的转义]]>
+													</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+										</xsd:choice>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+
 			<xsd:element name="filter" maxOccurs="1" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation><![CDATA[参数过滤器]]></xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
-					<xsd:sequence>
+					<xsd:choice>
 						<xsd:element name="blank" maxOccurs="unbounded"
 							minOccurs="0">
 							<xsd:annotation>
@@ -50,124 +243,47 @@
 								<xsd:attribute name="params" type="xsd:string"
 									default="*">
 									<xsd:annotation>
-										<xsd:documentation><![CDATA[参数列表，使用逗号分隔。默认*，代表全部]]></xsd:documentation>
+										<xsd:documentation><![CDATA[参数名表达式。可使用 * 作为通配符，多个参数表达式之间使用逗号分隔。]]></xsd:documentation>
 									</xsd:annotation>
 								</xsd:attribute>
 							</xsd:complexType>
 						</xsd:element>
 
 						<xsd:element name="eq" maxOccurs="unbounded"
-							minOccurs="0" type="comparableFilter">
+							minOccurs="0" type="ComparableFilter">
 							<xsd:annotation>
 								<xsd:documentation><![CDATA[等值参数过滤器]]></xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 
 						<xsd:element name="gt" maxOccurs="unbounded"
-							minOccurs="0" type="comparableFilter">
+							minOccurs="0" type="ComparableFilter">
 							<xsd:annotation>
 								<xsd:documentation><![CDATA[大值参数过滤器]]></xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 
 						<xsd:element name="gte" maxOccurs="unbounded"
-							minOccurs="0" type="comparableFilter">
+							minOccurs="0" type="ComparableFilter">
 							<xsd:annotation>
 								<xsd:documentation><![CDATA[大于等于参数过滤器]]></xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 
 						<xsd:element name="lt" maxOccurs="unbounded"
-							minOccurs="0" type="comparableFilter">
+							minOccurs="0" type="ComparableFilter">
 							<xsd:annotation>
 								<xsd:documentation><![CDATA[小值参数过滤器]]></xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 
 						<xsd:element name="lte" maxOccurs="unbounded"
-							minOccurs="0" type="comparableFilter">
+							minOccurs="0" type="ComparableFilter">
 							<xsd:annotation>
 								<xsd:documentation><![CDATA[小于等于参数过滤器]]></xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
-					</xsd:sequence>
-				</xsd:complexType>
-			</xsd:element>
-
-			<xsd:element name="converter" maxOccurs="1" minOccurs="0">
-				<xsd:annotation>
-					<xsd:documentation><![CDATA[参数转换器]]></xsd:documentation>
-				</xsd:annotation>
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="to-number" maxOccurs="unbounded"
-							minOccurs="0">
-							<xsd:annotation>
-								<xsd:documentation><![CDATA[参数数字类型转换器]]></xsd:documentation>
-							</xsd:annotation>
-							<xsd:complexType>
-								<xsd:attribute name="params" type="xsd:string"
-									use="required">
-									<xsd:annotation>
-										<xsd:documentation><![CDATA[参数列表，使用逗号分隔]]></xsd:documentation>
-									</xsd:annotation>
-								</xsd:attribute>
-
-								<xsd:attribute name="formatter" type="xsd:string">
-									<xsd:annotation>
-										<xsd:documentation><![CDATA[格式化模板]]></xsd:documentation>
-									</xsd:annotation>
-								</xsd:attribute>
-							</xsd:complexType>
-						</xsd:element>
-
-						<xsd:element name="to-date" maxOccurs="unbounded"
-							minOccurs="0">
-							<xsd:annotation>
-								<xsd:documentation><![CDATA[参数日期类型转换器]]></xsd:documentation>
-							</xsd:annotation>
-							<xsd:complexType>
-								<xsd:attribute name="params" type="xsd:string"
-									use="required">
-									<xsd:annotation>
-										<xsd:documentation><![CDATA[参数列表，使用逗号分隔]]></xsd:documentation>
-									</xsd:annotation>
-								</xsd:attribute>
-
-								<xsd:attribute name="formatter" type="xsd:string"
-									default="yyyy-MM-dd">
-									<xsd:annotation>
-										<xsd:documentation><![CDATA[格式化模板（默认值yyyy-MM-dd）]]></xsd:documentation>
-									</xsd:annotation>
-								</xsd:attribute>
-							</xsd:complexType>
-						</xsd:element>
-
-						<xsd:element name="wrap-string" maxOccurs="unbounded"
-							minOccurs="0">
-							<xsd:annotation>
-								<xsd:documentation><![CDATA[字符串参数包装转换器]]></xsd:documentation>
-							</xsd:annotation>
-							<xsd:complexType>
-								<xsd:attribute name="params" type="xsd:string"
-									use="required">
-									<xsd:annotation>
-										<xsd:documentation><![CDATA[参数列表，使用逗号分隔]]></xsd:documentation>
-									</xsd:annotation>
-								</xsd:attribute>
-
-								<xsd:attribute name="formatter"
-									default="%${value}%">
-									<xsd:annotation>
-										<xsd:documentation><![CDATA[包装模板（默认值%${value}%）]]></xsd:documentation>
-									</xsd:annotation>
-									<xsd:simpleType>
-										<xsd:union memberTypes="normalLikes xsd:string"></xsd:union>
-									</xsd:simpleType>
-								</xsd:attribute>
-							</xsd:complexType>
-						</xsd:element>
-					</xsd:sequence>
+					</xsd:choice>
 				</xsd:complexType>
 			</xsd:element>
 
@@ -186,8 +302,7 @@
 		</xsd:attribute>
 	</xsd:complexType>
 
-	<!-- 类型定义 -->
-	<xsd:simpleType name="normalLikes">
+	<xsd:simpleType name="NormalLikes">
 		<xsd:annotation>
 			<xsd:documentation><![CDATA[常用LIKE参数包装枚举]]></xsd:documentation>
 		</xsd:annotation>

@@ -1,23 +1,19 @@
 package cn.tenmg.dsql.factory;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.tenmg.dsl.ParamsConverter;
+import cn.tenmg.dsl.ParamsFilter;
 import cn.tenmg.dsl.Script;
+import cn.tenmg.dsl.context.DefaultDSLContext;
 import cn.tenmg.dsl.parser.JDBCParamsParser;
 import cn.tenmg.dsl.utils.DSLUtils;
 import cn.tenmg.dsql.DSQLFactory;
 import cn.tenmg.dsql.NamedSQL;
-import cn.tenmg.dsql.ParamsConverter;
-import cn.tenmg.dsql.ParamsFilter;
 import cn.tenmg.dsql.config.model.Converter;
 import cn.tenmg.dsql.config.model.Dsql;
 import cn.tenmg.dsql.config.model.Filter;
-import cn.tenmg.dsql.config.model.ParamsHandler;
-import cn.tenmg.dsql.utils.CollectionUtils;
-import cn.tenmg.dsql.utils.ParamsConverterUtils;
-import cn.tenmg.dsql.utils.ParamsFilterUtils;
 
 /**
  * 抽象动态结构化查询语言工厂
@@ -31,7 +27,7 @@ public abstract class AbstractDSQLFactory implements DSQLFactory {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -169658678380590492L;
+	private static final long serialVersionUID = 5184151389554035362L;
 
 	abstract Map<String, Dsql> getDsqls();
 
@@ -43,33 +39,41 @@ public abstract class AbstractDSQLFactory implements DSQLFactory {
 	@Override
 	public String getScript(String id) {
 		Dsql dsql = getDsql(id);
-		if (dsql == null) {
-			return null;
-		}
-		return dsql.getScript();
+		return dsql == null ? null : dsql.getScript();
+	}
+
+	@Override
+	public NamedSQL parse(Dsql dsql, Object... params) {
+		return new NamedSQL(dsql.getId(), DSLUtils.parse(
+				new DefaultDSLContext(getParamsConverters(dsql), getParamsFilters(dsql)), dsql.getScript(), params));
+	}
+
+	@Override
+	public NamedSQL parse(Dsql dsql, Object params) {
+		return new NamedSQL(dsql.getId(), DSLUtils.parse(
+				new DefaultDSLContext(getParamsConverters(dsql), getParamsFilters(dsql)), dsql.getScript(), params));
 	}
 
 	@Override
 	public NamedSQL parse(String dsql, Object... params) {
-		HashMap<String, Object> paramsMap = new HashMap<String, Object>();
-		if (params != null) {
-			for (int i = 0; i < params.length - 1; i++) {
-				paramsMap.put(params[i].toString(), params[++i]);
-			}
+		Dsql obj = getDsql(dsql);
+		if (obj == null) {
+			return new NamedSQL(DSLUtils.parse(dsql, params));
+		} else {
+			return new NamedSQL(obj.getId(), DSLUtils.parse(
+					new DefaultDSLContext(getParamsConverters(obj), getParamsFilters(obj)), obj.getScript(), params));
 		}
-		return parse(dsql, paramsMap);
 	}
 
 	@Override
-	public NamedSQL parse(String dsql, Map<String, ?> params) {
-		NamedSQL namedSQL = null;
+	public NamedSQL parse(String dsql, Object params) {
 		Dsql obj = getDsql(dsql);
 		if (obj == null) {
-			namedSQL = new NamedSQL(DSLUtils.parse(dsql, params));
+			return new NamedSQL(DSLUtils.parse(dsql, params));
 		} else {
-			namedSQL = parse(obj, params);
+			return new NamedSQL(obj.getId(), DSLUtils.parse(
+					new DefaultDSLContext(getParamsConverters(obj), getParamsFilters(obj)), obj.getScript(), params));
 		}
-		return namedSQL;
 	}
 
 	@Override
@@ -82,73 +86,19 @@ public abstract class AbstractDSQLFactory implements DSQLFactory {
 		return DSLUtils.toScript(namedscript, params, JDBCParamsParser.getInstance());
 	}
 
-	/**
-	 * 根据指定的参数params分析转换动态SQL对象dsql为SQL对象
-	 * 
-	 * @param dsql
-	 *            动态SQL配置对象
-	 * @param params
-	 *            参数列表
-	 * @return SQL对象
-	 */
-	protected NamedSQL parse(Dsql dsql, Map<String, ?> params) {
+	private static List<ParamsConverter<?>> getParamsConverters(Dsql dsql) {
+		Converter converter = dsql.getConverter();
+		if (converter == null) {
+			return null;
+		}
+		return converter.getParamsConverters();
+	}
+
+	private static List<ParamsFilter> getParamsFilters(Dsql dsql) {
 		Filter filter = dsql.getFilter();
-		if (!CollectionUtils.isEmpty(params)) {
-			if (filter != null) {
-				doFilter(params, filter);
-			}
-			Converter converter = dsql.getConverter();
-			if (converter != null) {
-				Map<String, Object> parameters = new HashMap<String, Object>();
-				parameters.putAll(params);
-				convert(parameters, converter);
-				params = parameters;
-			}
+		if (filter == null) {
+			return null;
 		}
-		NamedSQL namedSQL = new NamedSQL(DSLUtils.parse(dsql.getScript(), params));
-		namedSQL.setId(dsql.getId());
-		return namedSQL;
+		return filter.getParamsFilters();
 	}
-
-	/**
-	 * 过滤参数
-	 * 
-	 * @param params
-	 *            参数查找表
-	 * @param filter
-	 *            参数过滤器
-	 */
-	private void doFilter(Map<String, ?> params, Filter filter) {
-		List<ParamsHandler> paramsFilters = filter.getParamsFilters();
-		if (!CollectionUtils.isEmpty(paramsFilters)) {
-			ParamsHandler config;
-			ParamsFilter<ParamsHandler> paramsFilter;
-			for (int i = 0, size = paramsFilters.size(); i < size; i++) {
-				config = paramsFilters.get(i);
-				paramsFilter = ParamsFilterUtils.getParamsFilter(config.getClass());
-				paramsFilter.doFilter(params, config);
-			}
-		}
-	}
-
-	/**
-	 * 参数转换
-	 * 
-	 * @param params
-	 *            参数查找表
-	 * @param converter
-	 *            参数转换器配置
-	 */
-	private void convert(Map<String, Object> params, Converter converter) {
-		List<ParamsHandler> paramsConverters = converter.getParamsConverters();
-		if (!CollectionUtils.isEmpty(paramsConverters)) {
-			for (int i = 0, size = paramsConverters.size(); i < size; i++) {
-				ParamsHandler config = paramsConverters.get(i);
-				ParamsConverter<ParamsHandler> paramsConverter = ParamsConverterUtils
-						.getParamsConverter(config.getClass());
-				paramsConverter.convert(params, config);
-			}
-		}
-	}
-
 }

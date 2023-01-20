@@ -6,26 +6,22 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
-import cn.tenmg.dsl.converter.ToDateParamsConverter;
+import cn.tenmg.dsl.converter.DateAddParamsConverter;
 
 /**
- * 将参数转为 {@code java.util.Date} 类型的转换器
+ * 对 {@code java.util.Date} 类型的参数做加法运算的转换器
  * 
  * @author June wjzhao@aliyun.com
- *
- * @since 1.0.0
+ * 
+ * @since 1.3.0
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class ToDate extends ToDateParamsConverter implements Serializable {
+public class DateAdd extends DateAddParamsConverter implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -152984659922974934L;
-
-	public ToDate() {
-		super.setFormatter("yyyy-MM-dd");// 格式化模板默认值
-	}
+	private static final long serialVersionUID = 374736591517621578L;
 
 	@Override
 	@XmlAttribute
@@ -35,7 +31,13 @@ public class ToDate extends ToDateParamsConverter implements Serializable {
 
 	@Override
 	@XmlAttribute
-	public void setFormatter(String formatter) {
-		super.setFormatter(formatter);
+	public void setAmount(int amount) {
+		super.setAmount(amount);
+	}
+
+	@Override
+	@XmlAttribute
+	public void setUnit(String unit) {
+		super.setUnit(unit);
 	}
 }

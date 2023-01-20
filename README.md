@@ -117,7 +117,7 @@ WHERE 1=1
   #[AND S.STAFF_ID = :staffId]
   #[AND S.STAFF_NAME LIKE :staffName]
 ```
-有了上述带动态片段的SQL，Sqltool可以自动根据实际情况生成需要执行的SQL。例如：
+有了上述带动态片段的SQL，DSQL可以自动根据实际情况生成需要执行的SQL。例如：
 
 1. 参数staffId为空（`null`），而staffName为非空（非`null`）时，实际执行的语句为：
 

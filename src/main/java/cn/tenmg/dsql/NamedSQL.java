@@ -30,16 +30,21 @@ public class NamedSQL extends NamedScript {
 		super(namedScript.getScript(), namedScript.getParams());
 	}
 
+	public NamedSQL(String id, NamedScript namedScript) {
+		this(id, namedScript.getScript(), namedScript.getParams());
+	}
+
 	public NamedSQL(String script, Map<String, Object> params) {
 		super(script, params);
 	}
 
-	public String getId() {
-		return id;
+	public NamedSQL(String id, String script, Map<String, Object> params) {
+		super(script, params);
+		this.id = id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getId() {
+		return id;
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 
+import cn.tenmg.dsl.ParamsFilter;
 import cn.tenmg.dsql.config.model.filter.Blank;
 import cn.tenmg.dsql.config.model.filter.Eq;
 import cn.tenmg.dsql.config.model.filter.Gt;
@@ -37,13 +38,13 @@ public class Filter implements Serializable {
 			@XmlElement(name = "lt", type = Lt.class, namespace = Dsqls.NAMESPACE), // 小于指定值字符串参数移除器
 			@XmlElement(name = "lte", type = Lte.class, namespace = Dsqls.NAMESPACE)// 小于等于指定值字符串参数处理器
 	})
-	private List<ParamsHandler> paramsFilters;
+	private List<ParamsFilter> paramsFilters;
 
-	public List<ParamsHandler> getParamsFilters() {
+	public List<ParamsFilter> getParamsFilters() {
 		return paramsFilters;
 	}
 
-	public void setParamsFilters(List<ParamsHandler> paramsFilters) {
+	public void setParamsFilters(List<ParamsFilter> paramsFilters) {
 		this.paramsFilters = paramsFilters;
 	}
 
