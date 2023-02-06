@@ -1,6 +1,7 @@
 package cn.tenmg.dsql.factory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -82,15 +83,23 @@ public class XMLFileDSQLFactory extends AbstractDSQLFactory {
 					log.info("Scan package: ".concat(basePackage));
 					fileNames = FileUtils.scanPackage(basePackage, suffix);
 					if (CollectionUtils.isNotEmpty(fileNames)) {
+						InputStream inStream = null;
 						for (int j = 0, size = fileNames.size(); j < size; j++) {
 							fileName = fileNames.get(j);
 							log.info("Start parsing " + fileName);
-							List<Dsql> dsqls = XMLConfigLoader.getInstance()
-									.load(ClassUtils.getDefaultClassLoader().getResourceAsStream(fileName));
-							if (CollectionUtils.isNotEmpty(dsqls)) {
-								for (Iterator<Dsql> dit = dsqls.iterator(); dit.hasNext();) {
-									Dsql dsql = dit.next();
-									this.dsqls.put(dsql.getId(), dsql);
+							try {
+								inStream = ClassUtils.getDefaultClassLoader().getResourceAsStream(fileName);
+								List<Dsql> dsqls = XMLConfigLoader.getInstance().load(inStream);
+								if (CollectionUtils.isNotEmpty(dsqls)) {
+									for (Iterator<Dsql> dit = dsqls.iterator(); dit.hasNext();) {
+										Dsql dsql = dit.next();
+										this.dsqls.put(dsql.getId(), dsql);
+									}
+								}
+							} finally {
+								if (inStream != null) {
+									inStream.close();
+									inStream = null;
 								}
 							}
 							log.info("Finished parsing " + fileName);
