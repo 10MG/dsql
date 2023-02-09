@@ -1,5 +1,12 @@
 # DSQL
 
+<p align="left">
+    <a href="https://mvnrepository.com/artifact/cn.tenmg/dsql">
+        <img alt="maven" src="https://img.shields.io/maven-central/v/cn.tenmg/dsql.svg?style=flat-square">
+    </a>
+    <a target="_blank" href="LICENSE"><img src="https://img.shields.io/:license-Apache%202.0-blue.svg"></a>
+</p>
+
 ## 简介
 
 DSQL 的全称是动态结构化查询语言（Dynamic Structured Query Language），他是一种对结构化查询语言（SQL）的一种扩展。DSQL 基于[DSL](https://gitee.com/tenmg/dsl)实现，并在其上封装了配置工厂，可轻松管理和解析复杂的 DSQL。DSQL与 [DSL](https://gitee.com/tenmg/dsl) 一样，使用 `:` 加参数名表示普通参数，使用 `#` 加参数名表示嵌入参数，使用特殊字符 `#[]` 标记动态片段，当实际执行查询时，判断实际传入参数值是否为空（`null`）决定是否保留该片段，从而达到动态执行不同 SQL 的目的。以此来避免程序员手动拼接繁杂的 SQL，使得程序员能从繁杂的业务逻辑中解脱出来。此外，DSQL 还为查询参数提供转换器和过滤器，来对参数进行转换和过滤；同时，DSQL 脚本支持宏，来增强 SQL 的动态逻辑处理能力，避免使用函数导致索引破坏等。
