@@ -81,8 +81,7 @@
 											</xsd:annotation>
 										</xsd:attribute>
 
-										<xsd:attribute name="unit" type="xsd:string"
-											default="day">
+										<xsd:attribute name="unit" default="day">
 											<xsd:annotation>
 												<xsd:documentation><![CDATA[时间单位]]></xsd:documentation>
 											</xsd:annotation>
@@ -199,17 +198,6 @@
 							<xsd:complexType>
 								<xsd:complexContent>
 									<xsd:extension base="BasicParamHandler">
-										<xsd:attribute name="regex" type="xsd:string"
-											default="," use="required">
-											<xsd:annotation>
-												<xsd:documentation><![CDATA[字符串分割正则表达式。由于XML解析框架的原因，部分特殊字符需要转义。也可以使用 <regex> 子标签的 CDATA 来定义，以避免繁琐的转义]]></xsd:documentation>
-											</xsd:annotation>
-										</xsd:attribute>
-										<xsd:attribute name="limit" type="xsd:integer">
-											<xsd:annotation>
-												<xsd:documentation><![CDATA[最大分割子字符串数。指定时，必须为大于1的正整数]]></xsd:documentation>
-											</xsd:annotation>
-										</xsd:attribute>
 										<xsd:choice>
 											<xsd:element name="regex" type="xsd:string"
 												minOccurs="0" maxOccurs="1">
@@ -219,6 +207,17 @@
 												</xsd:annotation>
 											</xsd:element>
 										</xsd:choice>
+										<xsd:attribute name="regex" type="xsd:string"
+											default=",">
+											<xsd:annotation>
+												<xsd:documentation><![CDATA[字符串分割正则表达式。由于XML解析框架的原因，部分特殊字符需要转义。也可以使用 <regex> 子标签的 CDATA 来定义，以避免繁琐的转义]]></xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+										<xsd:attribute name="limit" type="xsd:integer">
+											<xsd:annotation>
+												<xsd:documentation><![CDATA[最大分割子字符串数。指定时，必须为大于1的正整数]]></xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
 									</xsd:extension>
 								</xsd:complexContent>
 							</xsd:complexType>
