@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dsqls xmlns="http://www.10mg.cn/schema/dsql"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.10mg.cn/schema/dsql http://www.10mg.cn/schema/dsql-1.3.xsd ">
+	xsi:schemaLocation="http://www.10mg.cn/schema/dsql http://www.10mg.cn/schema/dsql.xsd">
 	<dsql id="find_staff_info">
 		<converter>
 			<to-number params="enabled" formatter=""/>
