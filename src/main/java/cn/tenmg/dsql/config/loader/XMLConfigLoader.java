@@ -6,14 +6,13 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
 import cn.tenmg.dsql.config.ConfigLoader;
 import cn.tenmg.dsql.config.model.Dsql;
 import cn.tenmg.dsql.config.model.Dsqls;
-import cn.tenmg.dsql.exception.IllegalConfigException;
+import cn.tenmg.dsql.exception.LoadConfigException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 
 /**
  * XML配置加载器
@@ -41,7 +40,7 @@ public class XMLConfigLoader implements ConfigLoader {
 		try {
 			return convert((Dsqls) newUnmarshaller().unmarshal(new StringReader(s)));
 		} catch (JAXBException e) {
-			throw new IllegalConfigException("加载DSQL配置失败", e);
+			throw new LoadConfigException("加载DSQL配置失败", e);
 		}
 	}
 
@@ -50,7 +49,7 @@ public class XMLConfigLoader implements ConfigLoader {
 		try {
 			return convert((Dsqls) newUnmarshaller().unmarshal(file));
 		} catch (JAXBException e) {
-			throw new IllegalConfigException("加载DSQL配置失败", e);
+			throw new LoadConfigException("加载DSQL配置失败", e);
 		}
 	}
 
@@ -59,7 +58,7 @@ public class XMLConfigLoader implements ConfigLoader {
 		try {
 			return convert((Dsqls) newUnmarshaller().unmarshal(fr));
 		} catch (JAXBException e) {
-			throw new IllegalConfigException("加载DSQL配置失败", e);
+			throw new LoadConfigException("加载DSQL配置失败", e);
 		}
 	}
 
@@ -68,7 +67,7 @@ public class XMLConfigLoader implements ConfigLoader {
 		try {
 			return convert((Dsqls) newUnmarshaller().unmarshal(is));
 		} catch (JAXBException e) {
-			throw new IllegalConfigException("加载DSQL配置失败", e);
+			throw new LoadConfigException("加载DSQL配置失败", e);
 		}
 	}
 

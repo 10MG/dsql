@@ -46,7 +46,7 @@
 					<xsd:documentation><![CDATA[参数转换器]]></xsd:documentation>
 				</xsd:annotation>
 				<xsd:complexType>
-					<xsd:choice maxOccurs="unbounded" minOccurs="1">
+					<xsd:choice maxOccurs="unbounded" minOccurs="0">
 						<xsd:element name="to-date" maxOccurs="unbounded"
 							minOccurs="0">
 							<xsd:annotation>

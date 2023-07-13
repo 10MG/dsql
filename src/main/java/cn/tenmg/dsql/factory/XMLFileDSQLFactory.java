@@ -15,7 +15,7 @@ import cn.tenmg.dsl.utils.CollectionUtils;
 import cn.tenmg.dsl.utils.FileUtils;
 import cn.tenmg.dsql.config.loader.XMLConfigLoader;
 import cn.tenmg.dsql.config.model.Dsql;
-import cn.tenmg.dsql.exception.IllegalConfigException;
+import cn.tenmg.dsql.exception.LoadConfigException;
 
 /**
  * 基于XML文件配置的动态结构化查询语言工厂
@@ -108,7 +108,7 @@ public class XMLFileDSQLFactory extends AbstractDSQLFactory {
 						log.warn("File with suffix: " + suffix + " not found in package " + basePackage);
 					}
 				} catch (IOException e) {
-					throw new IllegalConfigException(
+					throw new LoadConfigException(
 							"Failed to scan and load report configuration file from package: " + basePackage, e);
 				}
 			}

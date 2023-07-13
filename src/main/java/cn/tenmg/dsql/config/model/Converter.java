@@ -3,11 +3,6 @@ package cn.tenmg.dsql.config.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-
 import cn.tenmg.dsl.ParamsConverter;
 import cn.tenmg.dsql.config.model.converter.DateAdd;
 import cn.tenmg.dsql.config.model.converter.Split;
@@ -15,6 +10,10 @@ import cn.tenmg.dsql.config.model.converter.ToDate;
 import cn.tenmg.dsql.config.model.converter.ToNumber;
 import cn.tenmg.dsql.config.model.converter.ToString;
 import cn.tenmg.dsql.config.model.converter.WrapString;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
 
 /**
  * 参数类型转换器容器

@@ -3,11 +3,6 @@ package cn.tenmg.dsql.config.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-
 import cn.tenmg.dsl.ParamsFilter;
 import cn.tenmg.dsql.config.model.filter.Blank;
 import cn.tenmg.dsql.config.model.filter.Eq;
@@ -15,6 +10,10 @@ import cn.tenmg.dsql.config.model.filter.Gt;
 import cn.tenmg.dsql.config.model.filter.Gte;
 import cn.tenmg.dsql.config.model.filter.Lt;
 import cn.tenmg.dsql.config.model.filter.Lte;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
 
 /**
  * 参数过滤器容器配置模型

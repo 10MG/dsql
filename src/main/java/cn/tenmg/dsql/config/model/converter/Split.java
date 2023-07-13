@@ -2,13 +2,12 @@ package cn.tenmg.dsql.config.model.converter;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-
 import cn.tenmg.dsl.converter.SplitParamsConverter;
 import cn.tenmg.dsql.config.model.Dsqls;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
 
 /**
  * 将类型为 {@code java.lang.String} 的非 {@code null} 参数值进行分割的转换器

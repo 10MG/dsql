@@ -6,7 +6,7 @@
 	<description>动态结构化查询语言（DSQL，Dynamic Structured Query Language）解析框架</description>
 	<groupId>cn.tenmg</groupId>
 	<artifactId>dsql</artifactId>
-	<version>1.3.2</version>
+	<version>1.3.3</version>
 	<packaging>jar</packaging>
 
 	<name>dsql</name>
@@ -55,10 +55,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<dsl.version>1.3.4</dsl.version>
+		<dsl.version>1.3.5</dsl.version>
 		<slf4j-api.version>2.0.7</slf4j-api.version>
-		<jaxb-api.version>2.3.1</jaxb-api.version>
-		<logback.version>1.3.5</logback.version>
+		<jakarta.xml.bind-api.version>3.0.1</jakarta.xml.bind-api.version>
+		<jaxb-runtime.version>3.0.2</jaxb-runtime.version>
+		<logback.version>1.3.8</logback.version>
 		<junit-jupiter.version>5.9.3</junit-jupiter.version>
 		<junit-platform-launcher.version>1.9.3</junit-platform-launcher.version>
 	</properties>
@@ -70,7 +71,14 @@
 			<artifactId>dsl</artifactId>
 			<version>${dsl.version}</version>
 		</dependency>
-
+		
+		<!-- https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
+		<dependency>
+		    <groupId>jakarta.xml.bind</groupId>
+		    <artifactId>jakarta.xml.bind-api</artifactId>
+		    <version>${jakarta.xml.bind-api.version}</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -78,12 +86,13 @@
 			<version>${slf4j-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		
+		<!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
 		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>${jaxb-api.version}</version>
-			<scope>provided</scope>
+		    <groupId>org.glassfish.jaxb</groupId>
+		    <artifactId>jaxb-runtime</artifactId>
+		    <version>${jaxb-runtime.version}</version>
+		    <scope>provided</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->

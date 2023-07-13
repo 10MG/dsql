@@ -2,11 +2,10 @@ package cn.tenmg.dsql.config.model.converter;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-
 import cn.tenmg.dsl.converter.ToStringParamsConverter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
 
 /**
  * 将参数转换为 {@code java.lang.String} 类型的转换器

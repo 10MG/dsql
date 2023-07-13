@@ -2,11 +2,10 @@ package cn.tenmg.dsql.config.model.converter;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-
 import cn.tenmg.dsl.converter.ToDateParamsConverter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
 
 /**
  * 将参数转为 {@code java.util.Date} 类型的转换器
