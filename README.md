@@ -1,12 +1,15 @@
 # DSQL
 
 <p align="left">
-    <a href="https://mvnrepository.com/artifact/cn.tenmg/dsql">
-        <img alt="maven" src="https://img.shields.io/maven-central/v/cn.tenmg/dsql.svg?style=flat-square">
+    <a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
+        <img src="https://img.shields.io/badge/JDK-1.8+-green.svg" />
     </a>
     <a target="_blank" href="LICENSE"><img src="https://img.shields.io/:license-Apache%202.0-blue.svg"></a>
     <a target="_blank" href='https://gitee.com/tenmg/dsql'>
         <img src="https://gitee.com/tenmg/dsql/badge/star.svg?theme=white" />
+    </a>
+    <a href="https://mvnrepository.com/artifact/cn.tenmg/dsql">
+        <img alt="maven" src="https://img.shields.io/maven-central/v/cn.tenmg/dsql.svg?style=flat-square">
     </a>
 </p>
 
