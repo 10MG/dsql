@@ -479,18 +479,7 @@ STAFF_ID | STAFF_NAME | DEPARTMENT_ID | POSITION | STATUS
 
 ## 配置文件
 
-通过 `dsl.properties` 配置文件可以调整注释的配置。
-
-通过 `comment.singleline` 指定单行注释前缀，多个前缀之间使用`,`隔开;
-
-通过 `comment.multiline` 指定多行注释前、后缀，成对配置，使用`,`隔开前缀和后缀，多对多行注释前后缀之间使用`;`隔开。
-
-`dsl.properties` 默认的配置内容为：
-
-```
-comment.singleline=--,//
-comment.multiline=/*,*/
-```
+通过 `dsl.properties` 配置文件可以调整注释等的配置，详见参见 [DSL 配置文件](https://gitee.com/tenmg/dsl/tree/master#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)。
 
 ## 参与贡献
 
